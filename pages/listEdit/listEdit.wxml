@@ -1,0 +1,53 @@
+<!--index.wxml-->
+<!--<block wx:if="{{initFinish}}">-->
+<view  class="page">
+  <view class="page__hd">
+    <view class="page__title">选择您的日常活动</view>
+    <view class="page__desc">这是一个记录您的日常状态，战胜拖延提高行动力的工具</view>
+  </view>
+
+  <block wx:for="{{itemMould}}" wx:for-index="index" wx:for-item="item" wx:key="itemS">
+    <view class="weui-article__h1 pl40">{{item.title}}:</view>
+    <view class="item-list2">
+      <block wx:for="{{item.items}}" wx:for-index="num" wx:for-item="i"  wx:key="i">
+        <button class="weui-btn mini-btn {{i.selected?'item-on':''}}"
+                hover-class="none"
+                bindtap="clickItem"
+                data-index="{{index}}"
+                data-num="{{num}}"
+                data-i="{{i}}"
+                size="mini"  hover-stay-time="10000">
+          {{i.txt}}
+        </button>
+      </block>
+    </view>
+  </block>
+
+
+  <!--<view class="page__hd" bindtap="showDialog">
+    <view class="align-c gray4">查看打分标准</view>
+  </view>-->
+  <view class="align-c mt30 mb50">
+    <button class="weui-btn per50" type="primary" bindtap="saveGo">选好了</button>
+  </view>
+
+  <!--<block wx:if="{{loading}}">
+    <view class="weui-loadmore">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+  </block>
+  <block wx:else>>
+    <text>a1111：</text>
+  </block>-->
+
+
+  <!--文章弹窗组件-->
+  <!--<commentArticle id='article' title='' content=''></commentArticle>-->
+
+</view>
+<!--</block>-->
+<!--<block wx:else>-->
+  <!--2222-->
+<!--</block>-->
+

@@ -1,0 +1,11 @@
+<import src="/components/popupArticle/tplMotivation.wxml"/>
+<view hidden="{{!isShow_article}}" class="popup-article">
+    <view class="page__title">分值参考</view>
+    <scroll-view scroll-y="true" class="page__desc txt">
+        <!--文章内容模板-->
+        <template is="tplMotivation" />
+    </scroll-view>
+    <view class="but-div" bindtap="showPopupAricle">
+        <button class="weui-btn mini-btn" type="default" size="mini">返 回</button>
+    </view>
+</view>

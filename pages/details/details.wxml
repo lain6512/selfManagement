@@ -1,0 +1,25 @@
+<!--index.wxml-->
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">玩游戏</view>
+        <view class="page__desc">您现在有多大的意愿做这件事呢？</view>
+    </view>
+        <view class="item-list">
+            <button class="weui-btn mini-btn"  size="mini" hover-class="item-on" hover-stay-time="10000">1</button>
+            <button class="weui-btn mini-btn" type="default" size="mini">2</button>
+            <button class="weui-btn mini-btn" type="default" size="mini">3</button>
+            <button class="weui-btn mini-btn" type="default" size="mini">4</button>
+            <button class="weui-btn mini-btn" type="default" size="mini">5</button>
+            <button class="weui-btn mini-btn" type="default" size="mini">6</button>
+            <button class="weui-btn mini-btn" type="default" size="mini">7</button>
+            <button class="weui-btn mini-btn" type="default" size="mini">8</button>
+            <button class="weui-btn mini-btn" type="default" size="mini">9</button>
+            <button class="weui-btn mini-btn" type="default" size="mini">10</button>
+        </view>
+    <view class="page__hd" bindtap="showDialog">
+        <view class="align-c gray4">查看打分标准</view>
+    </view>
+    <!--文章弹窗组件-->
+    <commentArticle id='article' title='' content=''></commentArticle>
+</view>
+

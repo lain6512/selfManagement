@@ -1,0 +1,90 @@
+<!--index.wxml-->
+<view class="page">
+
+  <view wx:if="{{isFirst}}" class="page__hd">
+    <view class="page__title align-c color-bright">什么事情总是在拖延？</view>
+    <view class="page__desc">写下来，我们一起来克服拖延症</view>
+  </view>
+
+
+  <view class="weui-cells__title color-bright">请输入您想做的事情：</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__bd">
+        <input class="weui-input"
+               bindinput="bindKeyInput"
+               focus="true"
+               placeholder-class="gray4"
+               maxlength="16"
+               bindconfirm="saveGo"
+               placeholder="例如：写xx总结"/>
+      </view>
+    </view>
+  </view>
+
+
+  <!--类别-->
+  <view class="weui-cells weui-cells_after-title mt10 gray1">
+    <view class="weui-cell weui-cell_select" bindtap="open">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">类别：</view>
+      </view>
+      <view class="weui-cell__bd">
+        <view class="weui-select weui-select_in-select-after">{{itemTitle}}</view>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_select" bindtap="openFrequency">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">什么时候做：</view>
+      </view>
+      <view class="weui-cell__bd">
+        <view class="weui-select weui-select_in-select-after">{{frequency}}</view>
+      </view>
+    </view>
+
+    <!--<view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">计划时间：</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker mode="time" value="{{timeStart}}" start="05:00" end="24:00" bindchange="bindTimeChangeS">
+          <view class="weui-input">{{timeStart}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label"></view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker mode="time" value="{{timeEnd}}" start="05:00" end="24:00" bindchange="bindTimeChangeE">
+          <view class="weui-input">{{timeEnd}}</view>
+        </picker>
+      </view>
+    </view>-->
+
+
+  </view>
+
+  <!--是否经常拖延-->
+  <!--<view class="weui-cells weui-cells_after-title  mt10">
+    <checkbox-group bindchange="checkboxChange">
+      <label class="weui-cell weui-check__label" wx:for="{{checkboxItems}}" wx:key="value">
+        <checkbox class="weui-check" value="{{item.value}}" checked="{{item.checked}}"/>
+
+        <view class="weui-cell__hd weui-check__hd_in-checkbox">
+          <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.checked}}"></icon>
+          <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{item.checked}}"></icon>
+        </view>
+        <view class="weui-cell__bd">{{item.name}}</view>
+      </label>
+    </checkbox-group>
+  </view>-->
+
+  <view class="page__bd page__bd_spacing mt40" bindtap="saveGo">
+    <button class="weui-btn" type="primary" plain="true">添加</button>
+  </view>
+
+</view>
+

@@ -1,0 +1,38 @@
+/**index.wxss**/
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+
+.popup-score{
+  width: 100%;
+  height:100%;
+  position: absolute;
+  top:0;
+  left:0;
+  opacity: 1.9;
+  background: #ffffff;
+  transition: left 500ms;
+}
+.popup-score.left-out{
+  left:-100%;
+}
+.popup-score.mentality{
+  z-index: 1102;
+}

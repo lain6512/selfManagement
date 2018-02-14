@@ -1,0 +1,101 @@
+@import 'weUI/weui.wxss';
+@import 'css/base.wxss';
+
+
+/**app.wxss**/
+.container{
+    color: #666;
+}
+page{
+  background-color: #F8F8F8;
+  font-size: 16px;
+  font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+}
+.page__hd {
+  padding: 40px;
+}
+.page__bd {
+  padding-bottom: 40px;
+}
+.page__bd_spacing {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.page__ft{
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.page__title {
+  text-align: left;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.page__desc {
+  margin-top: 5px;
+  color: #888888;
+  text-align: left;
+  font-size: 14px;
+}
+
+/*10层字体颜色*/
+.font1 {color: #f0f0f0}
+.font2 {color: #d1d1d1}
+.font3 {color: #b9b9b9}
+.font4 {color: #959595}
+.font5 {color: #626262}
+.font6 {color: #819e86}
+.font7 {color: #80c269}
+.font8 {color: #4fbe61}
+.font9 {color: #00b51e}
+.font10 {color: #e61600}
+
+/*按钮*/
+.weui-btn.w1{
+  width:140px;
+  height:36px;
+  line-height: 36px;
+}
+
+/*按钮列表*/
+.item-list{
+  text-align: center;
+  padding: 0px 0 30px 0px;
+
+}
+.item-list button{
+  width:70px;
+  margin: 10px 20px 10px 10px;
+  height:40px;
+  line-height: 40px;
+}
+.item-list button.item-on{
+  color: #fff;
+  background: #1aad19;
+}
+/*按钮列表2*/
+.item-list2{
+  text-align: center;
+  padding: 0px 0 10px 40px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-align: left;
+
+}
+.item-list2 button{
+  margin: 5px 20px 0px 0px;
+  height:32px;
+  line-height: 32px;
+  color: #999999;
+}
+.item-list2 button.item-on{
+  color: #fff;
+  /*background: #1aad19;*/
+  /*border:#1aad19 1px solid;*/
+  color: #1aad19;
+}
+
+
+

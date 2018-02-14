@@ -1,0 +1,52 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": true,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "1.9.1",
+	"appid": "wx9c6bc7383865abe7",
+	"projectname": "%E6%88%98%E8%83%9C%E6%8B%96%E5%BB%B6%E7%97%87%E7%9A%84%E8%87%AA%E5%BE%8B%E7%A5%9E%E5%99%A8",
+	"isGameTourist": false,
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 0,
+			"list": [
+				{
+					"id": 0,
+					"name": "第一次进入",
+					"pathName": "pages/list/list",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "添加",
+					"pathName": "pages/itemAdd/itemAdd",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "打分结果页",
+					"pathName": "pages/action/action",
+					"query": ""
+				}
+			]
+		}
+	}
+}

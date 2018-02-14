@@ -1,0 +1,22 @@
+/*文章弹出框*/
+.popup-article{
+    position: fixed;
+    width:96%;
+    height:96%;
+    padding: 30px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border:#eee 1px solid ;
+    top: 2%;
+    left:2%;
+    background: #ffffff;
+    z-index: 1105;
+}
+.popup-article .but-div{
+    padding:30px;
+    text-align: center;
+}
+.popup-article .txt{
+    height: 80%;
+    padding-top: 10px;
+}

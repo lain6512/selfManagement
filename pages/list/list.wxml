@@ -1,0 +1,114 @@
+<!--index.wxml-->
+
+<block wx:if="{{initFinish}}">
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">此刻您的各方面状态：</view>
+    <view class="page__desc flex-left">
+      精神状态：
+      <view>
+        <button class="weui-btn mini-btn" type="default" size="mini">{{mentality.value}} 分</button>
+      </view>
+    </view>
+    <view class="page__desc">
+      {{state[mentality.value-1]}}
+    </view>
+  </view>
+  <view class="page__bd">
+    <view class="weui-cells__title">各项动力意愿：</view>
+
+    <!--列表-->
+    <block wx:if="{{recordList.length>-1}}">
+      <view class="weui-cells weui-cells_after-title">
+        <block wx:for="{{recordList}}" wx:key="index">
+          <view class="weui-cell"
+                longtap="longPress"
+                data-item="{{item}}"
+                data-index="{{index}}"
+                bindtap="linkToItemEdit">
+            <view class="weui-cell__bd font{{item.value}}">{{item.txt}}</view>
+            <view class="weui-cell__ft font{{item.value}}">（ {{item.value}} ）</view>
+          </view>
+        </block>
+      </view>
+      <navigator url="/pages/itemAdd/itemAdd" class="pt20 align-c" hover-class="none">
+        <button class="weui-btn mini-btn w1" type="default" size="mini">+</button>
+      </navigator>
+
+      <navigator url="/pages/action/action?back=Y" class="pt20 align-c" hover-class="none">
+        <button class="weui-btn mini-btn w1" type="primary" size="mini">行动建议</button>
+      </navigator>
+    </block>
+
+    <block wx:else>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell" hover-class="weui-cell_active">
+          <view class="weui-cell__bd">暂无内容</view>
+          <view class="weui-cell__ft"></view>
+        </view>
+      </view>
+    </block>
+
+  </view>
+</view>
+</block>
+<block wx:else>
+  <view class="align-c color-bright pt150" data-dpr="l">
+    送你个专治拖延症的神器！
+  </view>
+  <view class="align-c gray4 pt30" data-dpr="m">加载中，请稍后......</view>
+</block>
+
+<block wx:if="{{allowRecord}}">
+<!--总精神状态选项-->
+<view  class="page popup-score mentality {{!show_mentality?'left-out':''}}">
+  <view class="page__hd">
+    <view class="page__title color-bright bold">您现在的精神状态是？</view>
+    <view class="page__desc"></view>
+  </view>
+  <view class="item-list">
+    <button
+            wx:for="{{10}}" wx:for-index="indexS" wx:for-item="num" wx:key="index"
+            class="weui-btn mini-btn"
+            bindtap="clickMentality"
+            type="default"
+            size="mini"
+            hover-class="item-on"
+            hover-stay-time="20000"
+            data-value="{{num+1}}"
+    >{{num+1}}</button>
+  </view>
+  <view class="page__hd" bindtap="showDialog">
+    <view class="align-c gray4">查看打分标准</view>
+  </view>
+</view>
+
+<!--文章弹窗组件-->
+<commentArticle id='article' title='' content=''></commentArticle>
+
+<block  wx:for="{{recordList}}"  wx:key="index">
+<view  class="page popup-score {{!item.show?'left-out':''}}">
+  <view class="page__hd">
+    <view class="page__title color-bright">{{item.txt}}</view>
+    <view class="page__desc">您现在有多大的意愿做这件事呢？</view>
+  </view>
+  <view class="item-list">
+    <button
+            wx:for="{{10}}" wx:for-index="indexS" wx:for-item="num" wx:key="index"
+            class="weui-btn mini-btn"
+            bindtap="clickItem"
+            type="default"
+            size="mini"
+            hover-class="item-on"
+            hover-stay-time="10000"
+            data-item="{{item}}"
+            data-index="{{index}}"
+            data-value="{{num+1}}"
+    >{{num+1}}</button>
+  </view>
+  <view class="page__hd">
+    <view class="align-c gray4">1：不愿意去做；10：非常想去做</view>
+  </view>
+</view>
+</block>
+</block>

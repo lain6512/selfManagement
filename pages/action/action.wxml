@@ -1,0 +1,38 @@
+<!--action.wxml-->
+<view class="container">
+
+  <view class="result">
+    <view class="title">您的目前总体状态：</view>
+    <view class="txt color-bright">{{state[mentality.value-1]}}</view>
+    <view class="time">记录于12:20</view>
+  </view>
+
+  <view class="pl30 pr30   title-t">根据您此刻状态制定的行动计划：</view>
+
+  <view class="pl30 pr30 pt10">
+
+    <block wx:for="{{result}}" wx:key="index">
+      <view wx:if="{{item.length>0}}" class="txt-box">
+        <view class="icon-num ">第{{index+1}}步：</view>
+        <view class="txt">
+          <block wx:for="{{item}}" wx:for-index="indexS" wx:for-item="itemS" wx:key="itemS">
+            {{itemS}}
+          </block>
+        </view>
+      </view>
+    </block>
+
+  </view>
+
+  <view class="align-c per100 tips  mt30">请按照以上步骤马上行动</view>
+  <view class="align-c per100 tips ">不管结果如何，记得回来反馈哦~</view>
+  <view class="align-c color-bright mt30">祝您战胜拖延症！</view>
+  <view class="p30"></view>
+
+  <navigator url="/pages/list/list" class="pt20 align-c" hover-class="none">
+    <button class="weui-btn mini-btn w1" type="default" size="mini">返回</button>
+  </navigator>
+
+  <view class="p30"></view>
+
+</view>

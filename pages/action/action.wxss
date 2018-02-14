@@ -1,0 +1,52 @@
+.txt-box{
+    border-bottom: #daead5 1rpx solid;
+    padding: 15px 0 20px 0;
+    font-size:14px;
+}
+.txt-box:first-child{
+    border-top: #daead5 1rpx solid;
+}
+.txt-box:last-child{
+    border-bottom: 0 none;
+}
+.icon-num{
+    /*width:30px;*/
+    height: 26px;
+    border-radius: 10px;
+    background: #00b51e;
+    color: #ffffff;
+    line-height: 26px;
+    text-align: center;
+    display: inline-block;
+    padding:0 3px 0 7px;
+}
+.txt-box .txt{
+    /*display: inline-block;*/
+    margin-top: 10px;
+}
+.title-t{
+    font-size:14px;
+    padding-top: 30px;
+}
+.tips{
+    font-size:12px;
+    color: #999999;
+
+}
+.result{
+    padding:40px 30px 20px 30px;
+    position: relative;
+}
+.result .title{
+    font-size:14px;
+}
+.result .txt{
+    font-size:17px;
+}
+.result .time{
+    font-size:10px;
+    color: #999;
+    position: absolute;
+    top: 10px;
+    right: 5px;
+ }
