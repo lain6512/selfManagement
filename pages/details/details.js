@@ -8,19 +8,16 @@ Page({
         userInfo: {},
         hasUserInfo: false,
         canIUse: wx.canIUse('button.open-type.getUserInfo'),
-
         // isShow_article: false,//显示参考说明弹框
 
     },
     //事件处理函数
     bindViewTap: function () {
-
     },
 
     onLoad: function () {
 
     },
-
 
     /**
      * 生命周期函数--监听页面初次渲染完成
@@ -36,7 +33,6 @@ Page({
             isShow_article:!this.data.isShow_article
         })
     },*/
-
     showDialog(){
         this.article.showPopupAricle();
     },

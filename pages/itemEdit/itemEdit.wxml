@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="page">
-  <view class="weui-cells__title color-bright">【编辑】请输入您想做的事情：</view>
-  <view class="weui-cells weui-cells_after-title">
+  <!--<view class="weui-cells__title color-bright">请输入您想做的事情：</view>-->
+  <view class="weui-cells weui-cells_after-title mt20">
     <view class="weui-cell weui-cell_input">
       <view class="weui-cell__bd">
         <input class="weui-input"
@@ -28,14 +28,14 @@
       </view>
     </view>
 
-    <view class="weui-cell weui-cell_select" bindtap="openFrequency">
+    <!--<view class="weui-cell weui-cell_select" bindtap="openFrequency">
       <view class="weui-cell__hd weui-cell__hd_in-select-after">
         <view class="weui-label">什么时候做：</view>
       </view>
       <view class="weui-cell__bd">
         <view class="weui-select weui-select_in-select-after">{{frequency}}</view>
       </view>
-    </view>
+    </view>-->
 
     <!--<view class="weui-cell weui-cell_input">
       <view class="weui-cell__hd">

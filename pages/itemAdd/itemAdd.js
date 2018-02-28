@@ -11,7 +11,7 @@ Page({
     inputValue:'',
     itemList:['学习', '运动', '工作', '日常/家务', '娱乐','吃东西'],
     itemTitle:'学习',
-    frequencyList:['每天','单次事项','工作日','节假日'],
+    frequencyList:['每天','单次事项'],
     frequency:'每天',
     timeStart: "5:00",
     timeEnd: "24:00",
@@ -102,8 +102,8 @@ Page({
   },
   //保存
   saveGo:function () {
-    console.log("itemMould:")
-    console.log(app.Data.itemMould)
+    // console.log("itemMould:")
+    // console.log(app.Data.itemMould)
 
 
 
@@ -233,8 +233,8 @@ Page({
       itemTitle:this.data.itemTitle,
       isDelay:true,
     }
-    console.log("obj:")
-    console.log(obj)
+    // console.log("obj:")
+    // console.log(obj)
     app.Data.itemInfoFirst =obj
     wx.redirectTo ({
       url: '../listEdit/listEdit'

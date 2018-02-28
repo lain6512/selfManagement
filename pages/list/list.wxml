@@ -27,7 +27,8 @@
                 data-index="{{index}}"
                 bindtap="linkToItemEdit">
             <view class="weui-cell__bd font{{item.value}}">{{item.txt}}</view>
-            <view class="weui-cell__ft font{{item.value}}">（ {{item.value}} ）</view>
+            <view wx:if="{{item.value=='OK'}}" class="weui-cell__ft pr10 font{{item.value}}">完成</view>
+            <view wx:else="" class="weui-cell__ft font{{item.value}}">（ {{item.value}} ）</view>
           </view>
         </block>
       </view>
@@ -35,9 +36,11 @@
         <button class="weui-btn mini-btn w1" type="default" size="mini">+</button>
       </navigator>
 
-      <navigator url="/pages/action/action?back=Y" class="pt20 align-c" hover-class="none">
+      <block wx:if="{{!delayFinish}}">
+      <navigator  url="/pages/action/action?back=Y" class="pt20 align-c" hover-class="none">
         <button class="weui-btn mini-btn w1" type="primary" size="mini">行动建议</button>
       </navigator>
+      </block>
     </block>
 
     <block wx:else>
@@ -60,6 +63,23 @@
 </block>
 
 <block wx:if="{{allowRecord}}">
+
+  <!-- 是否完成项-->
+  <!--<view  class="page align-c popup-score finish {{!show_mentality?'left-out':''}}">
+
+    <view class="pt120 pb100 align-c color-bright " data-dpr="xl">
+      学习 完成了吗？
+    </view>
+    <view class="pb30">
+      <button class="weui-btn mini-btn w1 " type="primary" size="mini">已完成</button>
+    </view>
+
+    <view>
+      <button class="weui-btn mini-btn w1" type="default" size="mini">尚未完成</button>
+    </view>
+
+  </view>-->
+
 <!--总精神状态选项-->
 <view  class="page popup-score mentality {{!show_mentality?'left-out':''}}">
   <view class="page__hd">
@@ -86,7 +106,9 @@
 <!--文章弹窗组件-->
 <commentArticle id='article' title='' content=''></commentArticle>
 
+  <!--各项打分-->
 <block  wx:for="{{recordList}}"  wx:key="index">
+<block wx:if="{{item.value!='OK'}}">
 <view  class="page popup-score {{!item.show?'left-out':''}}">
   <view class="page__hd">
     <view class="page__title color-bright">{{item.txt}}</view>
@@ -105,10 +127,32 @@
             data-index="{{index}}"
             data-value="{{num+1}}"
     >{{num+1}}</button>
+
+    <!--<block wx:if="{{!item.isDelay}}">-->
+    <block wx:if="{{item.itemTitle=='学习' || item.itemTitle=='工作' || item.itemTitle=='锻炼' || item.itemTitle=='日常/家务'}}">
+    <button
+            class="weui-btn mini-btn finish"
+            bindtap="clickItem"
+            type="default"
+            size="mini"
+            hover-class="item-on"
+            hover-stay-time="10000"
+            data-item="{{item}}"
+            data-index="{{index}}"
+            data-value="OK"
+    >已完成</button>
+    </block>
+    <!--</block>-->
   </view>
+
   <view class="page__hd">
     <view class="align-c gray4">1：不愿意去做；10：非常想去做</view>
   </view>
 </view>
 </block>
+</block>
+  <!--完成点赞弹框-->
+  <view wx:if="{{isShow_zan}}" class="finish-box flex-row">
+    <image  src="../../css/zan.png"></image>
+  </view>
 </block>

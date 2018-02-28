@@ -7,10 +7,12 @@ const app = getApp()
 var that;
 Page({
   data: {
-    overtime:30,//单位：分，多少时间内允许记录
+    overtime:1,//单位：分，多少时间内允许记录
 
     initFinish:false,//初始化是否完成
     allowRecord:false,//是否允许记录
+    isShow_zan:false,//点餐弹框显示
+    delayFinish:false,
 
     motto: 'Hello World',
     userInfo: {},
@@ -153,11 +155,23 @@ Page({
   //3.初始化记录列表
   initRecordList:function (arr) {
 
+    var that =this
     var recordList = wx.getStorageSync('recordList')
     var val = wx.getStorageSync('mentality').value
-
     console.log("recordList1")
     console.log(recordList)
+
+    if(wx.getStorageSync('delayFinish')==''){
+      this.setData({
+        delayFinish: false
+      })
+    }else{
+      this.setData({
+        delayFinish: wx.getStorageSync('delayFinish')
+      })
+    }
+
+    console.log("delayFinish:"+this.data.delayFinish)
     if(recordList !=''){
       console.log("取缓存")
       recordList.forEach(function (item, index) {
@@ -193,13 +207,76 @@ Page({
       console.log("recordList2")
       console.log(recordList)
     }
+    this.setFinishItem()
+  },
+  //4.是否需要重置每天已完成的选项,凌晨4点重置
+  setFinishItem:function () {
+
+    var that =this
+    var recordList = this.data.recordList
+
+    var now = new Date();
+    var time0;//凌晨4点
+    var time1 = wx.getStorageSync('recordTime');//上一次记录的时间
+    var time2;//现在的时间
+    var time0Str,time1Str,time2Str
+
+
+    time0Str = Tool.dateToString(now).substring(0,10) + ' 04:00:00'
+    // time0Str = '2018-02-23 00:20:00'
+
+    if (time1==''){
+      time1Str = Tool.dateToString(now).substring(0,10) + ' 00:00:00'
+    }else{
+      time1Str = Tool.dateToString(time1);
+    }
+    time2Str = Tool.dateToString(now);
+    console.log("time0Str："+time0Str)
+    console.log("time1Str："+time1Str)
+    console.log("time2Str："+time2Str)
+
+    var t0 = Tool.TimeDifference(time0Str, time2Str);//当前时间和4点的时间差
+    var t1 = Tool.TimeDifference(time0Str, time1Str);//上一次记录时间和4点的时间差
+    var t2 = Tool.TimeDifference(time1Str, time2Str);//当前时间和上一次记录的时间差
+
+
+    if(t2 && t2>3){
+      console.log("更新,t2:"+t2)
+      upDate()
+    }else{
+      console.log("判断24小时内,t2:"+t2)
+      if(t1 && t1>0){
+        console.log("记录时间和当前时间都在4点后")
+      }else{
+        if(t0 && t0>0){
+          console.log("记录时间在4点前，当前时间在4点后")
+          upDate()
+        }else{
+          console.log("记录时间和当前时间都在4点前")
+        }
+      }
+    }
+
+
+    function upDate() {
+      // console.log("【执行更新】")
+      recordList.forEach(function (item, index) {
+        item.value = 0
+      })
+      that.setData({
+        recordList: recordList,
+      })
+      wx.setStorageSync('recordList', that.data.recordList)
+      wx.setStorageSync('delayFinish', false)
+    }
+
     this.setStorageTime()
   },
-  //4.缓存时间是否符合条件，是否允许记录
+  //5.缓存时间是否符合条件，是否允许记录
   setStorageTime:function () {
     var recordTime = wx.getStorageSync('recordTime')
-    console.log("recordTime:")
-    console.log(recordTime)
+    // console.log("recordTime:")
+    // console.log(recordTime)
     if(recordTime == ''){
       this.setData({
         allowRecord:true,
@@ -249,27 +326,63 @@ Page({
   //点击选项
   clickItem:function (e) {
     console.log("点击")
-    // console.log(e)
+    console.log(e)
 
+    var that =this
     var index = e.currentTarget.dataset.index
     var value = e.currentTarget.dataset.value
+    var item = e.currentTarget.dataset.item
     var arr = this.data.recordList
+    var isLast = true
     arr[index].show =false
     arr[index].value = value
     this.setData({
       recordList:arr
     })
 
-    if(index == 0){
+    console.log("index:"+index)
+
+    //拖延项
+    if(item.isDelay ==true && value=='OK'){
+      this.setData({
+        isShow_zan:true,
+        delayFinish:true
+      })
+      setTimeout(function () {
+        that.setData({
+          isShow_zan:false
+        })
+      },2000)
+    }
+
+    if(index== 0){
       this.saveDataItem()//最后一条写入数据库
       this.setData({initFinish:true})//全部初始化完成！
+    }else{
+      for(var i=index;i>-1;i--){
+        console.log("i:"+i+" value:"+arr[i].value)
+        if(i-1>=0){
+          if(arr[i-1].value =='OK'){
+            isLast =true
+            // console.log("isLast:"+isLast)
+          }else{
+            isLast = false
+            // console.log("i:"+i)
+            // console.log("isLast:"+isLast)
+            break
+          }
+        }else{
+          isLast = true
+        }
+      }
+      // console.log("isLast:"+isLast)
+      if(isLast){
+        this.saveDataItem()//最后一条写入数据库
+        this.setData({initFinish:true})//全部初始化完成！
+      }
     }
   },
-  //选项长按
-  longPress:function (e) {
-    console.log("长按")
-    alert("长按")
-  },
+
   //总精神状态选项
   clickMentality:function (e) {
     console.log("点击")
@@ -311,11 +424,17 @@ Page({
       success: function (resData) {
         console.log("添加 记录 成功")
         console.log(resData)
+        console.log("delayFinish:"+that.data.delayFinish)
         wx.setStorageSync('recordList', that.data.recordList)
         wx.setStorageSync('mentality', that.data.mentality)
+        wx.setStorageSync('delayFinish', that.data.delayFinish)
         wx.setStorageSync('recordTime', new Date())
         that.setData({allowRecord:false})
-        wx.redirectTo ({url: '../action/action'})
+        if(that.data.delayFinish==true){
+
+        }else{
+          wx.redirectTo ({url: '../action/action'})
+        }
 
       },
       error: function(result, error) {

@@ -18,7 +18,6 @@ Page({
   },
   //linkTo列表页
   linkList: function() {
-      console.log("链接跳转")
       wx.navigateTo({
           url: '../list/list'
       })
@@ -53,8 +52,6 @@ Page({
     }
   },
   getUserInfo: function(e) {
-      console.log("执行 getUserInfo（）")
-      console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,

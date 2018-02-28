@@ -18,10 +18,6 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
 
   },
-  // ToUserCallBack:function (User) {
-  //   console.log("执行回调")
-  //   this.setData({User: app.User})//取得用户数据后回调
-  // },
 
   onLoad: function () {
     console.log("User:")
@@ -92,6 +88,12 @@ Page({
   initItemMould:function () {
     console.log("初始化模板")
     console.log(app.Data.itemInfoFirst)
+
+
+    wx.setStorageSync('recordList', '')
+    wx.setStorageSync('mentality', '')
+
+
     var itemInfoFirst = app.Data.itemInfoFirst
     var itemTypeArr = [
       {
@@ -153,11 +155,8 @@ Page({
   saveGo:function () {
     console.log("保存")
     // console.log(this.data.itemMould)
-    console.log(this.data.User)
-
-
+    // console.log(this.data.User)
     // return
-
     wx.showLoading({icon: 'loading', mask:true});
 
     var that = this

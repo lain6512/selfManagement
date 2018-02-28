@@ -71,6 +71,9 @@ page{
   height:40px;
   line-height: 40px;
 }
+.item-list button.finish{
+  width:100px;
+}
 .item-list button.item-on{
   color: #fff;
   background: #1aad19;

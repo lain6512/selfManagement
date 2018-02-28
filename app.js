@@ -2,29 +2,28 @@
 var Bmob = require('utils/bmob.js')
 var BmobSocketIo = require('utils/bmobSocketIo.js').BmobSocketIo;
 Bmob.initialize("f137f866edfad69aca6e1f48e325d2fc", "6cc64af2691d35e30cf39144dd9766ec");
-
 BmobSocketIo.initialize("f137f866edfad69aca6e1f48e325d2fc");
 
 App({
   globalData: {
     userInfo: null,
-    current:null,
-    test:'测试'
+    current: null,
+    test: '测试'
 
   },
-  User:null,
-  Data:{
-    itemMould:[],//模板数据
-    itemMouldType:null,//模板类型
-    itemMouldId:'',//模板id
+  User: null,
+  Data: {
+    itemMould: [],//模板数据
+    itemMouldType: null,//模板类型
+    itemMouldId: '',//模板id
     // allowRecord:true,
-    itemInfoFirst:'',//第一次进入记录
+    itemInfoFirst: '',//第一次进入记录
   },
-  loading:true,
+  loading: true,
   onLaunch: function () {
     console.log("-------------------开始app初始化-------------")
     // 展示本地存储能力
-    var that =this
+    var that = this
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
@@ -43,9 +42,8 @@ App({
             console.log(user, 'user', user.id, res);
 
             if (user.get("nickName")) {
-              // 第二次访问
               console.log("【第二次访问】：")
-              that.User =Bmob.User.current()
+              that.User = Bmob.User.current()
               wx.setStorageSync('openid', openid)
               that.UserCallBack(that.User)//执行回调
               /*setTimeout(function () {
@@ -73,11 +71,11 @@ App({
                       result.set('nickName', nickName);
                       result.set("userPic", avatarUrl);
                       result.set("openid", openid);
-                      result.save(null,{
+                      result.save(null, {
                         success: function (resData) {
                           console.log("注册成功")
                           console.log(resData)
-                          that.User =Bmob.User.current()
+                          that.User = Bmob.User.current()
                           // that.initItemMould()
                           if (that.UserCallBack) {
                             that.UserCallBack(that.User)//执行回调
@@ -101,17 +99,17 @@ App({
 
         }
       });
-    }else{
+    } else {
       console.log("【已授权登录】")
-      that.User =Bmob.User.current()
+      that.User = Bmob.User.current()
       if (this.UserCallBack) {
-        this.UserCallBack(that.User)//执行回调
+        this.UserCallBack(that.User)
       }
       // setTimeout(function () {
       //   console.log("User：")
       //   console.log(that.User)
-        // console.log(that.Data)
-        that.loading= false
+      // console.log(that.Data)
+      that.loading = false
       // },3000)
     }
   },
@@ -127,10 +125,10 @@ App({
           wx.getUserInfo({
             success: function (res) {
               console.log("获取用户信息成功 ")
-              that.User =Bmob.User.current()
+              that.User = Bmob.User.current()
               that.globalData.userInfo = res.userInfo
               if (this.UserCallBack) {
-                this.UserCallBack(that.User)//执行回调
+                this.UserCallBack(that.User)
               }
               typeof cb == "function" && cb(that.globalData.userInfo)
             }
@@ -140,11 +138,11 @@ App({
     }
   },
   //初始化模板
-  initItemMould:function () {
+  initItemMould: function () {
     console.log("初始化模板1")
     console.log(this.User)
     var that = this
-    var type='1' //1:非工作常规日；2：工作日下班后；3，工作日上班时间
+    var type = '1' //1:非工作常规日；2：工作日下班后；3，工作日上班时间
     var creatorId = this.User.id
     var creatorName = this.User.attributes.creatorName
     /*var itemTypeArr = [
@@ -195,14 +193,14 @@ App({
     mould.set('creatorName', creatorName);
     mould.set('creatorId', creatorId);
     mould.set("itemTypeArr", itemTypeArr);
-    mould.save(null,{
+    mould.save(null, {
       success: function (resData) {
         console.log("添加 模板 成功")
         console.log(resData)
         that.Data.itemMould = itemTypeArr
         that.initItemCallback(that.Data)
       },
-      error: function(result, error) {
+      error: function (result, error) {
         console.log("添加 模板 失败")
         console.log(result)
         console.log(error)

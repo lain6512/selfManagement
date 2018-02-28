@@ -7,7 +7,7 @@
   </view>
 
 
-  <view class="weui-cells__title color-bright">请输入您想做的事情：</view>
+  <view class="weui-cells__title color-bright">请输入日常你做的事情：</view>
   <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell weui-cell_input">
       <view class="weui-cell__bd">
@@ -34,7 +34,7 @@
       </view>
     </view>
 
-    <view class="weui-cell weui-cell_select" bindtap="openFrequency">
+    <view wx:if="{{isFirst}}" class="weui-cell weui-cell_select" bindtap="openFrequency">
       <view class="weui-cell__hd weui-cell__hd_in-select-after">
         <view class="weui-label">什么时候做：</view>
       </view>

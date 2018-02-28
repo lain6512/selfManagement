@@ -41,7 +41,7 @@ function dateToString(now) {
 function TimeDifference(time1, time2) {
   //判断开始时间是否大于结束日期
   if (time1 > time2) {
-    console.log("开始时间不能大于结束时间！");
+    // console.log("开始时间不能大于结束时间！");
     return false;
   }
 

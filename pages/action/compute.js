@@ -33,7 +33,7 @@ var data ={
  * @param recordList 记录列表数据
  */
 function start(val,recordList) {
-  console.log("开始计算")
+  console.log("开始计算，总状态："+val)
   console.log(recordList)
   var t;
   var n_delay,n_rest,n_sports,n_work,n_amu,n_eat;
@@ -115,9 +115,11 @@ function start(val,recordList) {
 
   //主要判断逻辑
   if(t==1 || t==2){
+    //【1分和2分情况】
     result[0].push(data.rest[4])
     return result
   }else if(t==9 || t==10){
+    //【9分和10分情况】
     result[0].push(strWork + data.work[2])
     return result
   }else if(t==3 || t==4){
@@ -132,7 +134,7 @@ function start(val,recordList) {
         }
       })
       if(amuItem.value>6){
-        if(n_delay>8){
+        if(n_delay>=8){
           result[0].push(data.rest[4])
           result[1].push(data.sports[0])
           result[2].push(strWork)
@@ -144,7 +146,7 @@ function start(val,recordList) {
           result[2].push(data.work[1])
         }
       }else{
-        if(n_delay>7){
+        if(n_delay>=7){
           result[0].push(data.rest[4])
           result[1].push(data.sports[1])
           result[2].push(strWork)
@@ -154,6 +156,18 @@ function start(val,recordList) {
           result[2].push(strWork)
           result[2].push(data.work[1])
         }
+      }
+    }else{
+      //没有娱乐选项情况
+      if(n_delay>=7){
+        result[0].push(data.rest[4])
+        result[1].push(data.sports[1])
+        result[2].push(strWork)
+      }else if (n_delay<7){
+        result[0].push(data.rest[4])
+        result[1].push(data.rest[2])
+        result[2].push(strWork)
+        result[2].push(data.work[1])
       }
     }
     return result
@@ -169,7 +183,7 @@ function start(val,recordList) {
         }
       })
       if(amuItem.value>5){
-        if(n_delay>7){
+        if(n_delay>=7){
           result[0].push(data.rest[0])
           result[1].push(data.sports[0])
           result[2].push(strWork)
@@ -180,7 +194,7 @@ function start(val,recordList) {
           result[2].push(data.work[1])
         }
       }else{
-        if(n_delay>6){
+        if(n_delay>=6){
           result[0].push(data.rest[0])
           result[1].push(data.sports[0])
           result[2].push(strWork)
@@ -191,12 +205,24 @@ function start(val,recordList) {
           result[2].push(data.work[1])
         }
       }
+    }else{
+      //没有娱乐选项情况
+      if(n_delay>=6){
+        result[0].push(data.rest[0])
+        result[1].push(data.sports[0])
+        result[2].push(strWork)
+      }else if (n_delay<6){
+        result[0].push(data.rest[1])
+        result[1].push(data.sports[1])
+        result[2].push(strWork)
+        result[2].push(data.work[1])
+      }
     }
     return result
   }else if(t==7 || t==8){
 
     //【7分和8分情况】
-    if(n_delay>6){
+    if(n_delay>=6){
       result[0].push(data.rest[0])
       result[1].push(strWork)
     }else{

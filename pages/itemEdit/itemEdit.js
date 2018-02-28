@@ -179,8 +179,8 @@ Page({
 
     query.get(itemMouldId,{
       success: function (results) {
-        console.log("查找 模板数据 成功")
-        console.log(results);
+        // console.log("查找 模板数据 成功")
+        // console.log(results);
 
         results.set("itemTypeArr", mouldArr);
         results.save(null,{
@@ -240,7 +240,7 @@ Page({
         if (res.confirm) {
           that.saveDataDel()
         } else if (res.cancel) {
-          console.log('用户点击取消')
+          // console.log('用户点击取消')
         }
       }
     })
@@ -261,7 +261,7 @@ Page({
       return
     }
 
-    return
+    // return
     //逆循环删除
     mouldArr.forEach(function (item, index) {
       for (let i = item.items.length - 1; i >= 0; i--) {
@@ -303,7 +303,7 @@ Page({
               content: '操作失败',
               showCancel: false,
               success: function (res) {
-                if (res.confirm){wx.navigateTo({url: '/pages/list/list'})}
+                if (res.confirm){wx.redirectTo({url: '/pages/list/list'})}
               }
             });
           }

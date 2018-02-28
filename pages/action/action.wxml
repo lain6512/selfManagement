@@ -29,7 +29,7 @@
   <view class="align-c color-bright mt30">祝您战胜拖延症！</view>
   <view class="p30"></view>
 
-  <navigator url="/pages/list/list" class="pt20 align-c" hover-class="none">
+  <navigator url="/pages/list/list" open-type="redirectTo" class="pt20 align-c" hover-class="none">
     <button class="weui-btn mini-btn w1" type="default" size="mini">返回</button>
   </navigator>
 
