@@ -1,8 +1,0 @@
-<!--logs.wxml-->
-<view class="container log-list">
-  <navigator url="/pages/list/list" class="align-c gray4">》跳转列表</navigator>
-
-  <block wx:for="{{logs}}" wx:for-item="log">
-    <text class="log-item">{{index + 1}}. {{log}}</text>
-  </block>
-</view>

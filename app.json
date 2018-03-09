@@ -1,20 +1,12 @@
 {
   "pages":[
-
-
-
     "pages/list/list",
     "pages/listEdit/listEdit",
-
     "pages/itemAdd/itemAdd",
     "pages/itemEdit/itemEdit",
-
     "pages/index/index",
     "pages/details/details",
-    "pages/action/action",
-
-    "pages/logs/logs"
-
+    "pages/action/action"
   ],
   "window":{
     "backgroundTextStyle":"light",

@@ -11,7 +11,8 @@ Page({
 
     itemList:['学习', '运动', '日常/家务', '娱乐','吃东西'],
     type:'',
-    frequencyList:['每天','单次事项','工作日','节假日'],
+    // frequencyList:['每天','单次事项','工作日','节假日'],
+    frequencyList:['每天'],
     frequency:'',
     timeStart: "5:00",
     timeEnd: "24:00",

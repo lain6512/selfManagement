@@ -18,7 +18,7 @@ var data ={
   ],
   work:[
       "把这件事分为三部分，第一部分占工作量的10%，第二部分占30%，第三部分60%，先去完成第一部分。",
-      "如果到时做不到，就把做这件事相关的物品资料等等，整理一下，准备好。 ",
+      " ",
       "现在的你一定能克服任何困难！"
   ],
   eat:[
@@ -78,7 +78,7 @@ function start(val,recordList) {
         if(item.frequency == '单次任务'){
           strWork ='开始'+ delayItem.txt +'。'+data.work[0]
         }else{
-          strWork ='这时的你可以开始'+ delayItem.txt +'了。'
+          strWork ='这时的你可以开始'+ delayItem.txt +'了！'
         }
       }
 

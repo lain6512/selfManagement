@@ -41,6 +41,9 @@
         <button class="weui-btn mini-btn w1" type="primary" size="mini">行动建议</button>
       </navigator>
       </block>
+      <block wx:else="">
+        <view class="pt30 align-c color-bright">今天您战胜了拖延！非常不错，请再接再厉！</view>
+      </block>
     </block>
 
     <block wx:else>

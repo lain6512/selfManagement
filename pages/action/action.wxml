@@ -25,8 +25,8 @@
   </view>
 
   <view class="align-c per100 tips  mt30">请按照以上步骤马上行动</view>
-  <view class="align-c per100 tips ">不管结果如何，记得回来反馈哦~</view>
-  <view class="align-c color-bright mt30">祝您战胜拖延症！</view>
+  <!--<view class="align-c per100 tips ">不管结果如何，记得回来反馈哦~</view>-->
+  <view class="align-c color-bright mt30">祝您战胜拖延症！行动吧！</view>
   <view class="p30"></view>
 
   <navigator url="/pages/list/list" open-type="redirectTo" class="pt20 align-c" hover-class="none">

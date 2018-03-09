@@ -100,33 +100,40 @@ Page({
         title: '学习',
         items: [
           {txt: '看书', selected: true,frequency:'每天',isDelay:false,value:0,show:true},
-          {txt: '记单词', selected: true,frequency:'每天',isDelay:false,value:0,show:true},
+          {txt: '记单词', selected: false,frequency:'每天',isDelay:false,value:0,show:true},
+          {txt: '学习充电', selected: false,frequency:'每天',isDelay:false,value:0,show:true},
+          {txt: '写作业', selected: false,frequency:'每天',isDelay:false,value:0,show:true},
         ]
       },
       {
         title: '工作',
         items: [
-          {txt: '每日工作计划', selected: true,frequency:'每天',isDelay:false,value:0,show:true},
+          {txt: '工作计划', selected: true,frequency:'每天',isDelay:false,value:0,show:true},
+          {txt: '写报告', selected: false,frequency:'每天',isDelay:false,value:0,show:true},
+          {txt: '写总结', selected: false,frequency:'每天',isDelay:false,value:0,show:true},
+          {txt: '发邮件', selected: false,frequency:'每天',isDelay:false,value:0,show:true},
         ]
       },
       {
         title: '锻炼',
         items: [
           {txt: '跑步', selected: true,frequency:'每天',isDelay:false,value:0,show:true},
+          {txt: '仰卧起坐', selected: false,frequency:'每天',isDelay:false,value:0,show:true},
+          {txt: '俯卧撑', selected: false,frequency:'每天',isDelay:false,value:0,show:true},
+          {txt: '瑜伽', selected: false,frequency:'每天',isDelay:false,value:0,show:true},
         ]
       },
       {
         title: '日常/家务',
         items: [
-          {txt: '洗澡', selected: true,frequency:'每天',isDelay:false,value:0,show:true},
-          {txt: '扫地', selected: true,frequency:'每天',isDelay:false,value:0,show:true},
+          {txt: '洗澡', selected: false,frequency:'每天',isDelay:false,value:0,show:true},
+          {txt: '打扫', selected: true,frequency:'每天',isDelay:false,value:0,show:true},
         ]
       },
       {
         title: '吃东西',
         items: [
-          {txt: '吃零食', selected: true,frequency:'每天',isDelay:false,value:0,show:true},
-          {txt: '吃午/晚餐', selected: true,frequency:'每天',isDelay:false,value:0,show:true},
+          {txt: '吃东西', selected: true,frequency:'每天',isDelay:false,value:0,show:true},
         ]
       },
       {
@@ -135,6 +142,7 @@ Page({
           {txt: '玩游戏', selected: true,frequency:'每天',isDelay:false,value:0,show:true},
           {txt: '上网/刷朋友圈/聊天', selected: true,frequency:'每天',isDelay:false,value:0,show:true},
           {txt: '看电视/电影', selected: true,frequency:'每天',isDelay:false,value:0,show:true},
+          {txt: '刷淘宝', selected: false,frequency:'每天',isDelay:false,value:0,show:true},
         ]
       },
     ]

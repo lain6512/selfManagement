@@ -1,13 +1,16 @@
 <!--index.wxml-->
 <view class="page">
 
-  <view wx:if="{{isFirst}}" class="page__hd">
+  <block wx:if="{{isFirst}}">
+  <view  class="page__hd">
     <view class="page__title align-c color-bright">什么事情总是在拖延？</view>
     <view class="page__desc">写下来，我们一起来克服拖延症</view>
   </view>
-
-
-  <view class="weui-cells__title color-bright">请输入日常你做的事情：</view>
+    <view class="weui-cells__title color-bright">请输入总是拖延的事情：</view>
+  </block>
+  <block wx:else="">
+    <view class="weui-cells__title color-bright">请输入日常做的事情：</view>
+  </block>
   <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell weui-cell_input">
       <view class="weui-cell__bd">
@@ -34,14 +37,14 @@
       </view>
     </view>
 
-    <view wx:if="{{isFirst}}" class="weui-cell weui-cell_select" bindtap="openFrequency">
+    <!--<view wx:if="{{isFirst}}" class="weui-cell weui-cell_select" bindtap="openFrequency">
       <view class="weui-cell__hd weui-cell__hd_in-select-after">
         <view class="weui-label">什么时候做：</view>
       </view>
       <view class="weui-cell__bd">
         <view class="weui-select weui-select_in-select-after">{{frequency}}</view>
       </view>
-    </view>
+    </view>-->
 
     <!--<view class="weui-cell weui-cell_input">
       <view class="weui-cell__hd">

@@ -1,5 +1,5 @@
 <template name="tplMotivation">
-  <text>
+  <text data-dpr="s">
     【1分】重病在床，起身困难；
     【2分】生病状态，感觉全身不适，四肢无力，不想做任何事；
     【3分】身体极度疲劳，头昏脑胀；
