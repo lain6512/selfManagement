@@ -1,0 +1,59 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="page__bd">
+    <view class="weui-grids ">
+      <block wx:for="{{grids}}" wx:for-item="item"  wx:for-index="index" wx:key="*this">
+        <view   class="weui-grid flex-row" >
+          <block wx:if="{{recordType == '0'}}">
+            <picker mode="date"
+                    value="{{item.date}}"
+                    start="2017-08-01"
+                    end="{{endDate}}"
+                    data-index = "{{index}}"
+                    bindchange="bindDateChange">
+            <view  class="icon-txt font8 flex-row">
+              <!--<span class="color-bright icon-zs" >🌼</span>-->
+              <text class="iconfont icon-jiangli icon-zs"></text>
+              <span class="color-bright icon-zs-txt">早睡勋章</span>
+            </view>
+            <view class="weui-grid__label gray1" data-dpr="s">{{item.date}}</view>
+            </picker>
+          </block>
+
+          <block wx:else>
+            <picker mode="date"
+                    value="{{item.date}}"
+                    start="2017-08-01"
+                    end="{{endDate}}"
+                    data-index = "{{index}}"
+                    bindchange="bindDateChange">
+            <view class="icon-txt font8 flex-row">
+              <!--<span class="color-bright icon-zs" >☀</span>-->
+              <text class="iconfont icon-ai250 icon-zs"></text>
+              <span class="color-bright icon-zs-txt">早起勋章</span>
+            </view>
+            <view class="weui-grid__label gray1" data-dpr="s">{{item.date}}</view>
+            </picker>
+          </block>
+
+        </view>
+      </block>
+
+
+      <view  wx:for="{{9-(grids.length%3)}}" wx:key="*this" class="weui-grid flex-row" >
+        <view class="icon-txt none flex" data-dpr="s">待打卡</view>
+        <view class="weui-grid__label gray4" data-dpr="s">　</view>
+      </view>
+
+    </view>
+  </view>
+
+
+
+  <!--底部按钮-->
+  <view class="f-bottom-btn flex">
+    <navigator class="txt-link gray1" open-type="navigateBack">
+      返回
+    </navigator>
+  </view>
+</view>

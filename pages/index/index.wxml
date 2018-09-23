@@ -1,32 +1,130 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo"
-            bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+  <view class="f-radius-bg pt20">
+    <!--开始新的拖延项-->
+    <view class="f-radius-box delay-box pb20">
+      <view class="title gray1">拖延症又犯了？</view>
+      <button class="weui-btn btn" type="primary" bindtap="linkDelayAddItem">开始战“拖”</button>
+    </view>
+
+
+    <!--正在进行的拖延项-->
+    <block wx:if="{{finishDelay && delayItemArr.length > 0}}">
+      <view class="bar-title pt20 pb10">正在进行：</view>
+      <view class="f-radius-box delay-box">
+        <view class="delay-btn-list">
+          <button
+                  wx:for="{{delayItemArr}}"
+                  wx:key="index"
+                  class="weui-btn delay-btn"
+                  hover-class="none"
+                  bindtap="clickItem"
+                  data-id="{{item.objectId}}"
+                  size="mini" hover-stay-time="10000">
+            {{item.dataInfo.title}}
+          </button>
+          <button wx:for="{{(delayItemArr.length%2) == 1}}"
+                  wx:key="index"
+                  class="weui-btn delay-btn"
+                  hover-class="none"
+                  bindtap="linkDelayItem"
+                  size="mini" hover-stay-time="10000">
+            +
+          </button>
+        </view>
+      </view>
     </block>
+
+    <!--<view class="bg-tips">
+      <view>开始自律人生</view>
+      <test>︾</test>
+    </view>-->
+
+    <view class="p10"></view>
+
   </view>
 
-  <view class="button-sp-area">
-    <button class="weui-btn mini-btn"
-            type="default" size="mini"
-            bindtap="linkList"
-    >列表页
-    </button>
 
-    <view class="button-sp-area">
-      <button class="weui-btn mini-btn"
-              type="default" size="mini"
-              open-type="getUserInfo"
-              bindgetuserinfo="getUserInfo"
-      >获取用户信息
+
+  <!--<button bindtap="clickBtn" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>-->
+  <!--<button class="weui-btn" open-type="getUserInfo" bindgetuserinfo="btnClick">获取用户头像2</button>-->
+
+  <view class="autonomic-box pt20">
+    <view class="autonomic">
+      <view class="btn-mar float-l">
+        <block wx:if="{{isSleepRecord}}">
+          <button class="weui-btn car-btn"
+                  type="primary"
+                  plain
+                  open-type="getUserInfo"
+                  bindgetuserinfo="recordTimeStart"
+                  data-type="0"
+          >早睡打卡</button>
+        </block>
+        <block wx:else>
+          <button class="weui-btn car-btn"
+                  type="primary"
+                  bindtap="linkRecordSignIn"
+                  data-type="0"
+          >✓ 早睡打卡</button>
+        </block>
+
+        <button wx:if="{{isShowSleep}}" type="primary" class="weui-btn car-btn on-click" >✓ 早睡打卡</button>
+        <!--<button type="primary" class="weui-btn car-btn on-click" >✓ 早睡打卡</button>-->
+      </view>
+
+      <view class="btn-mar float-r">
+        <block wx:if="{{isGetUpRecord}}">
+          <button class="weui-btn car-btn"
+                  type="primary"
+                  plain
+                  open-type="getUserInfo"
+                  bindgetuserinfo="recordTimeStart"
+                  data-type="1"
+          >早起打卡</button>
+        </block>
+        <block wx:else>
+          <button class="weui-btn car-btn"
+                  type="primary"
+                  bindtap="linkRecordSignIn"
+                  data-type="1"
+          >✓ 早起打卡</button>
+        </block>
+
+        <button wx:if="{{isShowGetUp}}" type="primary" class="weui-btn car-btn on-click" >✓ 早起打卡</button>
+      </view>
+
+    </view>
+    <view class="align-c clear">
+      <button bindtap="linkHabitAdd" data-type="1" class="weui-btn index-btn"  >
+        记录一次我的好习惯
       </button>
     </view>
 
+    <view class="btn-list pt20 ">
+      <view class="flex-two">
+
+        <button class="weui-btn flex-row enter-btn" bindtap="linkHabitAdd" data-type="2">
+          <view class="title">我要戒</view>
+          <view class="txt">坏习惯记录，警示自己</view>
+        </button>
+
+        <button class="enter-btn flex-row weui-btn"
+                open-type="getUserInfo"
+                bindgetuserinfo="linkTarget">
+          <view class="title">我的目标</view>
+          <view class="txt">写出来，才会有动力</view>
+        </button>
+
+
+      </view>
+    </view>
+
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+
+  <view class="p20"></view>
+  <!--<button class="weui-btn mini-btn" type="default" size="mini" bindtap="clear">-->
+    <!--清除缓存-->
+  <!--</button>-->
+
 </view>

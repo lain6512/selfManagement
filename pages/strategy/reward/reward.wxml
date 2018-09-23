@@ -1,0 +1,68 @@
+<!--index.wxml-->
+<view class="container">
+  <view  class=" bgcolor-white p10 border-b" data-dpr="normal" >
+    策略：设置奖励
+  </view>
+
+
+      <view wx:if="{{state == 0}}" class="align-c bgcolor-white pt20  pb60">
+
+        <view class="p10 plr20 pb10 align-l color-bright">
+          如果完成，给自己什么奖励呢？请写出来：
+        </view>
+        <view class="weui-cells weui-cells_after-title align-l mt10">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <textarea
+                      bindblur = "txt1blur"
+                      class="weui-textarea"
+                      placeholder-class = "placeholder"
+                      placeholder="吃一顿，买衣服、小物品，一直想要的东西，2小时游戏，......."
+                      value="{{txt}}"
+                      style="height: 3.3em" />
+            </view>
+          </view>
+        </view>
+
+        <view class="f-btn-list pt20 flex-center " bindtap="click1">
+            <button class="weui-btn flex-row enter-btn">
+              <view class="title">确定</view>
+            </button>
+        </view>
+
+      </view>
+
+
+  <view  wx:if="{{state == 1}}"  class="bgcolor-white align-c ">
+    <view class="  pt40 pb50 plr30 align-l">
+
+      <view  class="pt20  gray1" data-dpr="normal">如果完成：</view>
+      <view class="color-red mt10 f-tips-box">
+        <text data-dpr="normal" class="gray1">给自己奖励：</text>
+        <text  data-dpr="l">{{txt}}</text>
+      </view>
+
+    </view>
+
+    <view class="f-btn-list pt10 flex-center " bindtap="click3">
+      <button class="weui-btn flex-row enter-btn">
+        <view class="title">好</view>
+      </button>
+    </view>
+
+      <view class="align-c gray4 pt20 pb50" data-dpr="normal" bindtap="click4">修改</view>
+
+
+  </view>
+
+  <view wx:if="{{state == 1}}"  class="f-book" data-dpr="normal" >
+    <view class="text1 gray4 align-l" data-dpr="s">
+      出自《坚持，一种可以养成的习惯》
+    </view>
+    <view class="text1 gray4 align-r" data-dpr="s">
+      --- [日] 古川武士
+    </view>
+  </view>
+
+</view>
+

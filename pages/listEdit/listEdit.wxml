@@ -23,31 +23,9 @@
     </view>
   </block>
 
-
-  <!--<view class="page__hd" bindtap="showDialog">
-    <view class="align-c gray4">查看打分标准</view>
-  </view>-->
   <view class="align-c mt30 mb50">
     <button class="weui-btn per50" type="primary" bindtap="saveGo">选好了</button>
   </view>
 
-  <!--<block wx:if="{{loading}}">
-    <view class="weui-loadmore">
-      <view class="weui-loading"></view>
-      <view class="weui-loadmore__tips">正在加载</view>
-    </view>
-  </block>
-  <block wx:else>>
-    <text>a1111：</text>
-  </block>-->
-
-
-  <!--文章弹窗组件-->
-  <!--<commentArticle id='article' title='' content=''></commentArticle>-->
 
 </view>
-<!--</block>-->
-<!--<block wx:else>-->
-  <!--2222-->
-<!--</block>-->
-

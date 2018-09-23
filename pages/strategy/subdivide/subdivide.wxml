@@ -1,0 +1,172 @@
+<!--index.wxml-->
+<scroll-view class="container">
+  <view  class=" bgcolor-white p10 border-b" data-dpr="normal" >
+    策略：细分目标
+  </view>
+
+  <!--第一页-->
+  <view wx:if="{{state == 0}}" class="align-l bgcolor-white pt20  pb60">
+
+    <view class="p10 plr20 pb10 align-l color-bright">
+      请把 "{{delayItem.dataInfo.title}}" 分成三部分
+    </view>
+    <view class="plr20 pb10  grat1 " data-dpr="normal">
+      把进行过程分成3部分，或者把完成的数量分成3份
+    </view>
+
+    <view class="weui-cells weui-cells_after-title align-l mt10">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+              <textarea
+                      bindblur="txt1blur"
+                      class="weui-textarea"
+                      placeholder-class="placeholder"
+                      placeholder="输入第一部分"
+                      value="{{txt1}}"
+                      style="height: 3.3em"/>
+        </view>
+      </view>
+
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+              <textarea
+                      bindblur="txt2blur"
+                      class="weui-textarea"
+                      placeholder-class="placeholder"
+                      placeholder="输入第二部分"
+                      value="{{txt2}}"
+                      style="height: 3.3em"/>
+        </view>
+      </view>
+
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+              <textarea
+                      bindblur="txt3blur"
+                      class="weui-textarea"
+                      placeholder-class="placeholder"
+                      placeholder="输入第三部分"
+                      value="{{txt3}}"
+                      style="height: 3.3em"/>
+        </view>
+      </view>
+    </view>
+
+    <view class="f-btn-list pt20 flex-center " bindtap="click1">
+      <button class="weui-btn flex-row enter-btn">
+        <view class="title">确定</view>
+      </button>
+    </view>
+
+    <view class="p20">
+      <view class="gray4 lh16 pt5 pb5" data-dpr="s">
+        示例：[写总结]：1，写总体大纲；2，具体写各部分内容；3，检查修改和补漏
+      </view>
+      <view class="gray4 lh16" data-dpr="s">
+        示例：[出门跑步]：1，跑1公里；2，跑2公里；3，跑1公里；
+      </view>
+    </view>
+  </view>
+
+  <!--第二页-->
+  <view wx:if="{{state == 1}}" class="align-l bgcolor-white pt20  pb60">
+
+    <view class="p10 plr20 pb10 align-l color-bright">
+      请再把 第一部分 "{{txt1}}" 分成 3 个小部分
+    </view>
+
+    <view class="weui-cells weui-cells_after-title align-l mt10">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+              <textarea
+                      bindblur="txt4blur"
+                      class="weui-textarea"
+                      placeholder-class="placeholder"
+                      placeholder="输入第一部分的第(1)小部分"
+                      value="{{txt4}}"
+                      style="height: 3.3em"/>
+        </view>
+      </view>
+
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+              <textarea
+                      bindblur="txt5blur"
+                      class="weui-textarea"
+                      placeholder-class="placeholder"
+                      placeholder="输入第一部分的第(2)小部分"
+                      value="{{txt5}}"
+                      style="height: 3.3em"/>
+        </view>
+      </view>
+
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+              <textarea
+                      bindblur="txt6blur"
+                      class="weui-textarea"
+                      placeholder-class="placeholder"
+                      placeholder="输入第一部分的第(3)小部分"
+                      value="{{txt6}}"
+                      style="height: 3.3em"/>
+        </view>
+      </view>
+    </view>
+
+    <view class="f-btn-list pt20 flex-center " bindtap="click2">
+      <button class="weui-btn flex-row enter-btn">
+        <view class="title">确定</view>
+      </button>
+    </view>
+
+  </view>
+
+
+
+
+  <view  wx:if="{{state == 2}}"  class="bgcolor-white align-c">
+    <view wx:if="{{!isEdit}}"  class="pt10 align-c color-bright" data-dpr="l">很好，做的不错！</view>
+    <view class="p20 align-l gray1 border-b" data-dpr="normal">
+      <view>步骤：</view>
+      <view>一、{{txt1}}</view>
+      <view class="p10" data-dpr="s">
+        <view class="color-red">(1) {{txt4}}</view>
+        <view>(2) {{txt5}}</view>
+        <view>(3) {{txt6}}</view>
+      </view>
+      <view>二、{{txt2}}</view>
+      <view>三、{{txt3}}</view>
+    </view>
+
+
+    <view class="  pt10 pb50 plr30 align-l " >
+      <view  class="pt20  gray1" data-dpr="normal">你现在的目标只有：</view>
+      <view class="color-red mt10 f-tips-box">
+        <text  data-dpr="l">{{txt4}}</text>
+      </view>
+
+      <view  class="pt20 align-c gray1" data-dpr="normal">先做好最开始的第一步，开始行动吧！</view>
+    </view>
+
+
+
+    <view class="f-btn-list pt10 flex-center " bindtap="click3">
+      <button class="weui-btn flex-row enter-btn">
+        <view class="title">好</view>
+      </button>
+    </view>
+    <view class="align-c gray4 pt20 pb110" data-dpr="normal" bindtap="click4">修改</view>
+
+  </view>
+
+  <view wx:if="{{state == 2}}"  class="f-book" >
+    <view class="text1 gray4 align-l">
+      出自《战胜拖延症》
+    </view>
+    <view class="text2 gray4 align-r" >
+      --- [加] 蒂莫西 • 皮切尔博士著
+    </view>
+  </view>
+
+</scroll-view>
+

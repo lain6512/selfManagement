@@ -1,8 +1,11 @@
 //app.js
 var Bmob = require('utils/bmob.js')
-var BmobSocketIo = require('utils/bmobSocketIo.js').BmobSocketIo;
-Bmob.initialize("f137f866edfad69aca6e1f48e325d2fc", "6cc64af2691d35e30cf39144dd9766ec");
-BmobSocketIo.initialize("f137f866edfad69aca6e1f48e325d2fc");
+// var BmobSocketIo = require('utils/bmobSocketIo.js').BmobSocketIo;
+Bmob.initialize("f137f866edfad69aca6e1f48e325d2fc", "6cc64af2691d35e30cf39144dd9766ec"); //自律神器 生产
+// BmobSocketIo.initialize("f137f866edfad69aca6e1f48e325d2fc");//自律神器 生产
+
+// Bmob.initialize("8d8d2d924792ef96ca05741c735ff7f7", "16c17c9a4e5eeaa28fffea49f80c59f1"); //自律神器_dev
+// BmobSocketIo.initialize("8d8d2d924792ef96ca05741c735ff7f7");//自律神器_dev
 
 App({
   globalData: {
@@ -11,132 +14,140 @@ App({
     test: '测试'
 
   },
-  User: null,
+  version: '1.5.3',
+  User:null,
+  initFinish:false,
+  config:{
+    dynamicNum:1000,//用户动态数据库记录的条数
+  },
   Data: {
     itemMould: [],//模板数据
-    itemMouldType: null,//模板类型
+    itemMouldType: 1,//模板类型 1:非工作常规日；2：工作日下班后；3，工作日上班时间
     itemMouldId: '',//模板id
     // allowRecord:true,
-    itemInfoFirst: '',//第一次进入记录
+    itemInfoFirst: '111',//第一次进入记录
+    recordList: '',// 选项列表记录
+    mentalityVal: '',// 精神总状态值
+    delayItem:'', // 拖延项数据
+    delayId:'', // 拖延项id
   },
   loading: true,
-  onLaunch: function () {
-    console.log("-------------------开始app初始化-------------")
-    // 展示本地存储能力
-    var that = this
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
-    var user = new Bmob.User();//开始注册用户
-
-    var newOpenid = wx.getStorageSync('openid')
-    if (!newOpenid) {
-
-
-      //登录
-      wx.login({
-        success: function (res) {
-          user.loginWithWeapp(res.code).then(function (user) {
-            var openid = user.get("authData").weapp.openid;
-            console.log(user, 'user', user.id, res);
-
-            if (user.get("nickName")) {
-              console.log("【第二次访问】：")
-              that.User = Bmob.User.current()
-              wx.setStorageSync('openid', openid)
-              that.UserCallBack(that.User)//执行回调
-              /*setTimeout(function () {
-                console.log("执行Data")
-                console.log(that.Data)
-              },3000)*/
-
-            } else {
-              console.log("【第一次进入】")
-              //保存用户其他信息
-              wx.getUserInfo({
-                success: function (result) {
-
-                  var userInfo = result.userInfo;
-                  var nickName = userInfo.nickName;
-                  var avatarUrl = userInfo.avatarUrl;
-
-                  var u = Bmob.Object.extend("_User");
-                  var query = new Bmob.Query(u);
-                  // 这个 id 是要修改条目的 id，你在生成这个存储并成功时可以获取到，请看前面的文档
-                  query.get(user.id, {
-                    success: function (result) {
-                      // 自动绑定之前的账号
-
-                      result.set('nickName', nickName);
-                      result.set("userPic", avatarUrl);
-                      result.set("openid", openid);
-                      result.save(null, {
-                        success: function (resData) {
-                          console.log("注册成功")
-                          console.log(resData)
-                          that.User = Bmob.User.current()
-                          // that.initItemMould()
-                          if (that.UserCallBack) {
-                            that.UserCallBack(that.User)//执行回调
-                          }
-                        }
-                      });
-
-                    }
-                  });
-
-                }
-              });
-
-
-            }
-
-          }, function (err) {
-            console.log("执行loginWithWeapp（）失败")
-            console.log(err, 'errr');
-          });
-
-        }
-      });
-    } else {
-      console.log("【已授权登录】")
-      that.User = Bmob.User.current()
-      if (this.UserCallBack) {
-        this.UserCallBack(that.User)
-      }
-      // setTimeout(function () {
-      //   console.log("User：")
-      //   console.log(that.User)
-      // console.log(that.Data)
-      that.loading = false
-      // },3000)
+  onLaunch:function  () {
+    this.checkVersion()
+  },
+  //检查版本清空缓存
+  checkVersion () {
+    const version = this.version
+    let v =  wx.getStorageSync('version')
+    if (!v || v !== version) {
+      wx.clearStorageSync()
+      wx.setStorageSync('version', version)
     }
   },
   //获取用户信息
   getUserInfo: function (cb) {
+    console.log('执行 getUserInfo（）')
     var that = this
-    if (this.globalData.userInfo) {
-      typeof cb == "function" && cb(this.globalData.userInfo)
+    if (this.User.attributes.nickName) {
+      console.log('已存在用户昵称1')
+      typeof cb == 'function' && cb(this.User)
     } else {
       //调用登录接口
+      console.log('无用户昵称 调用登录接口')
       wx.login({
         success: function () {
+          console.log('wx.login 微信登录成功')
           wx.getUserInfo({
             success: function (res) {
-              console.log("获取用户信息成功 ")
-              that.User = Bmob.User.current()
-              that.globalData.userInfo = res.userInfo
-              if (this.UserCallBack) {
-                this.UserCallBack(that.User)
-              }
-              typeof cb == "function" && cb(that.globalData.userInfo)
+              console.log('获取用户信息成功')
+              console.log(res)
+              // that.globalData.userInfo = res.userInfo
+              that.User = res.userInfo
+              typeof cb == 'function' && cb(that.User)
+            },
+            fail:function (err) {
+              console.log('获取用户信息 失败')
+              console.log(err)
             }
+
           })
         }
       })
     }
   },
+  //bmob登录
+  bmobLogin (cb) {
+    var that = this
+    var promise = new Bmob.Promise();
+    this.User = Bmob.User.current()
+    if (!this.User) {
+      console.log('开始登录')
+      var user = new Bmob.User() //开始注册用户
+      user.auth()
+          .then(function (obj) {
+                console.log('登陆成功1')
+                console.log(obj)
+                that.User = Bmob.User.current()
+                if (!that.User) {
+                  //本地缓存被用户手动清除，current 为 null，重新 登录获取并记录
+                  console.log('current 无缓存信息，重新获取')
+                  wx.login({
+                    success: function (res) {
+                      user.loginWithWeapp(res.code).then(
+                          function (user) {
+                            that.User = user
+                            var openid = user.get('authData').weapp.openid
+                            wx.setStorageSync('openid', openid)
+                            //保存用户其他信息到用户表
+                            promise.resolve(that.initFinish);
+                          },
+                          function (err) {
+                            // promise.reject(err);
+                          }
+                      )
+                    }
+                  })
+                } else {
+                  that.initFinish = true
+                  promise.resolve(that.initFinish);
+                  // typeof cb == 'function' && cb(that.loading)
+                }
+
+              },
+              function (err) {
+                console.log('失败了', err)
+              });
+    } else {
+      // console.log('存在用户信息')
+      // console.log(this.User)
+      that.initFinish = true
+      promise.resolve(that.initFinish);
+      // typeof cb == 'function' && cb(that.loading)
+    }
+    return promise._thenRunCallbacks({});
+  },
+  //重新登录，用户主动删除缓存情况
+  reLogin () {
+    wx.login({
+      success: function (res) {
+        console.log('登录成功')
+        console.log(res)
+        Bmob.User.loginWithWeapp(res.code).then(
+            function (user) {
+
+              var openid = user.get('authData').weapp.openid
+              wx.setStorageSync('openid', openid)
+              //保存用户其他信息到用户表
+              promise.resolve(user);
+            },
+            function (err) {
+              promise.reject(err);
+            }
+        )
+      }
+    })
+  },
+
   //初始化模板
   initItemMould: function () {
     console.log("初始化模板1")
@@ -198,7 +209,7 @@ App({
         console.log("添加 模板 成功")
         console.log(resData)
         that.Data.itemMould = itemTypeArr
-        that.initItemCallback(that.Data)
+        // that.initItemCallback(that.Data)
       },
       error: function (result, error) {
         console.log("添加 模板 失败")
@@ -206,6 +217,63 @@ App({
         console.log(error)
 
       }
+    });
+  },
+  //清除缓存
+  clearStorage:function () {
+    console.log('清除缓存')
+    wx.clearStorage()
+  },
+  //获取拖延项单项数据
+  getDataInitItem (id) {
+    return new Promise((resolve, reject) => {
+
+      let that = this
+      var Mould = Bmob.Object.extend("delay_list");
+      var query = new Bmob.Query(Mould);
+
+      query.get(id,{
+        success: function (res) {
+          console.log("查找 拖延项 成功")
+          console.log(res);
+          that.Data.delayItem = res.attributes // 保存到全局
+          that.Data.delayId = res.id // 保存到全局
+          resolve(res)
+        },
+        error: function (error) {
+          console.log("查找 模板数据 失败")
+          reject(res)
+        }
+      });
+
+    });
+  },
+  //获取自律工具记录数据
+  getDataToolItem (code) {
+    return new Promise((resolve, reject) => {
+      var creatorId = this.User.id
+      var Mould = Bmob.Object.extend("tool_list");
+      var query = new Bmob.Query(Mould);
+
+      query.equalTo("creatorId", creatorId);
+      query.equalTo("code", code);
+      query.first({
+        success: function (res) {
+          console.log("查找 工具数据 成功")
+          console.log(res);
+          if (res) {
+            resolve(res)
+          } else {
+            reject('none')
+          }
+
+        },
+        error: function (error) {
+          console.log("查找 工具数据 失败")
+          reject(res)
+        }
+      });
+
     });
   },
 

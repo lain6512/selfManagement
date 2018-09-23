@@ -45,3 +45,32 @@ var recordList =
     {"selected":true,"txt": "跑步"},
     {"selected":true,"txt": "吃午/晚餐"},
   ]
+//打卡记录数据
+var record = [
+  {
+    date:'2018-12-14',
+    typeRecord:1,//1:早睡记录；2：早起记录
+  }
+]
+
+
+
+//早睡早起记录动态
+var dynamic = {
+  "creatorId": "dc9926bab1",
+  "creatorInfo": {
+    "avatarUrl": "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTK7uQibFqljjP97zYJS9xQMsotwXfXsWRuftevrlPj6tlF0gvuceUZV2EKVNkN3d1ekzBqS6uEN1KA/132",
+    "city": "Shenzhen",
+    "country": "China",
+    "gender": 1,
+    "language": "zh_CN",
+    "nickName": "畅歌",
+    "province": "Guangdong"
+  },
+  "creatorName": "畅歌",
+  "date": "2018-06-03 12:14:40",
+  "medal": 1,
+  "quantity": 0,
+  "result": "",
+  "typeRecord": "0"
+}

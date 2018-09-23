@@ -21,12 +21,16 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 5,
 			"list": [
 				{
 					"id": 0,
@@ -44,6 +48,54 @@
 					"id": -1,
 					"name": "打分结果页",
 					"pathName": "pages/action/action",
+					"query": ""
+				},
+				{
+					"id": 3,
+					"name": "早睡记录",
+					"pathName": "pages/recordSignIn/recordSignIn",
+					"query": "type=0"
+				},
+				{
+					"id": -1,
+					"name": "小伙伴们",
+					"pathName": "pages/dynamic/dynamic",
+					"query": ""
+				},
+				{
+					"id": 5,
+					"name": "记录好习惯",
+					"pathName": "pages/habitAdd/habitAdd",
+					"query": "type=1"
+				},
+				{
+					"id": -1,
+					"name": "记录习惯-列表",
+					"pathName": "pages/habitItemList/habitItemList",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "全部记录",
+					"pathName": "pages/habitList/habitList",
+					"query": ""
+				},
+				{
+					"id": 8,
+					"name": "拖延项首页",
+					"pathName": "pages/delayHome/delayHome",
+					"query": "delayId=42f7e2bd56"
+				},
+				{
+					"id": 9,
+					"name": "拖延项",
+					"pathName": "pages/strategy/subdivide/subdivide",
+					"query": "delayId=42f7e2bd56"
+				},
+				{
+					"id": -1,
+					"name": "工具单项页",
+					"pathName": "pages/tool/target/target",
 					"query": ""
 				}
 			]

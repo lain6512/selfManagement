@@ -1,0 +1,99 @@
+<!--index.wxml-->
+<view class="container">
+
+
+  <view class="f-radius-bg pt20">
+    <view class="f-radius-box pt20 pb20">
+      <view class="" data-dpr="l">
+        <text wx:if="{{!delayFinish}}">进行中：</text>
+        <text wx:else="">已完成：</text>
+        <text class="color-bright">{{delayItem.dataInfo.title}}</text>
+      </view>
+      <view class="gray4" data-dpr="normal">
+        开始于：{{startTime}}
+        <text wx:if="{{delayItem.finishNum > 0}}">  已完成 <text  class="color-bright">{{delayItem.finishNum}}</text> 次</text>
+      </view>
+      <view wx:if="{{delayFinish}}" class="color-red" data-dpr="l">你太厉害了！请继续加油！</view>
+      <view class="plr20 per85">
+        <text  wx:for="{{delayItem.finishNum}}" wx:key="index" class="iconfont icon-jiangli w1 color-bright"></text>
+      </view>
+    </view>
+  </view>
+
+  <view class="bgcolor-white align-c pt30 pb60 mt30">
+
+
+    <button class="weui-btn flex-row item-btn" bindtap="linkSixty">
+      <view class="tips">策略：60分原则</view>
+      <view class="title">非完美策略</view>
+      <view class="txt">迟迟没有开始，只是你想做得太完美</view>
+    </button>
+
+    <button class="weui-btn flex-row item-btn" bindtap="linkReward">
+      <view class="tips">策略：设置奖励</view>
+      <view class="title">给自己的鼓励</view>
+      <view class="txt">有奖励，才会有动力</view>
+    </button>
+
+    <button class="weui-btn flex-row item-btn" bindtap="linkSubdivide">
+      <view class="tips">策略：细分目标</view>
+      <view class="title">把目标拆解</view>
+      <view class="txt">想一次全部做完，但通常会觉得困难而不行动</view>
+    </button>
+
+    <button class="weui-btn flex-row item-btn" bindtap="linkNow">
+      <view class="tips">策略：立即行动法</view>
+      <view class="title">在犹豫要不要现在做？</view>
+      <view class="txt">明明现在就应该去做，身体就是不想动？戳这里！</view>
+    </button>
+
+    <button class="weui-btn flex-row item-btn" bindtap="linkBad">
+      <view class="tips">策略：后果刺激法</view>
+      <view class="title">后果很严重？</view>
+      <view class="txt">您需要勇敢的面对现实</view>
+    </button>
+
+    <button class="weui-btn flex-row item-btn" bindtap="linkGood">
+      <view class="tips">策略：利益诱惑法</view>
+      <view class="title">有好处才会去做</view>
+      <view class="txt">决定做一件事，一定是有值得做的价值</view>
+    </button>
+
+    <button class="weui-btn flex-row item-btn" bindtap="linkList" data-type="2" link="/pages/list/list">
+      <view class="tips">策略：恢复精神状态</view>
+      <view class="title">行动建议</view>
+      <view class="txt">根据目前你的行动意愿，安排合理行动顺序，克服拖延</view>
+    </button>
+
+
+  </view>
+
+
+
+  <!--底部按钮-->
+  <view class="f-bottom-btn flex">
+    <navigator class="txt-link gray1" open-type="navigateBack">
+      返回
+    </navigator>
+    <button
+            wx:if = "{{!isFinishOne}}"
+            open-type="getUserInfo"
+            bindgetuserinfo="saveOne"
+            class="weui-btn w1"
+            type="primary"
+    >完成一次</button>
+    <button
+            wx:if ="{{isFinishOne}}"
+            class="weui-btn w1"
+            disabled="{{true}}"
+    >完成一次</button>
+
+    <view class="txt-link gray1"  bindtap="saveGo">已结束</view>
+  </view>
+
+  <!--完成点赞弹框-->
+  <view wx:if="{{isShow_zan}}" class="finish-box flex-row" bindtap="hideZan">
+    <image  src="../../css/img/zan.png"></image>
+  </view>
+</view>
+

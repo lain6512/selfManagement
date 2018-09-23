@@ -16,7 +16,6 @@
   </view>
   <view class="page__bd">
     <view class="weui-cells__title">各项动力意愿：</view>
-
     <!--列表-->
     <block wx:if="{{recordList.length>-1}}">
       <view class="weui-cells weui-cells_after-title">
@@ -32,14 +31,17 @@
           </view>
         </block>
       </view>
-      <navigator url="/pages/itemAdd/itemAdd" class="pt20 align-c" hover-class="none">
-        <button class="weui-btn mini-btn w1" type="default" size="mini">+</button>
+      <navigator url="/pages/itemAdd/itemAdd" class="p10 align-l" hover-class="none">
+        <view class="gray4 pl5" data-dpr="s">+ 添加项</view>
       </navigator>
 
       <block wx:if="{{!delayFinish}}">
-      <navigator  url="/pages/action/action?back=Y" class="pt20 align-c" hover-class="none">
-        <button class="weui-btn mini-btn w1" type="primary" size="mini">行动建议</button>
-      </navigator>
+        <view class="pt20 align-c" hover-class="none" bindtap="linkToAciton">
+          <button class="weui-btn mini-btn w1" type="primary" size="mini">行动建议</button>
+        </view>
+        <view class="pt20 align-c" hover-class="none" bindtap="linkDelayIndex">
+          <button class="weui-btn mini-btn w1" size="mini">返 回</button>
+        </view>
       </block>
       <block wx:else="">
         <view class="pt30 align-c color-bright">今天您战胜了拖延！非常不错，请再接再厉！</view>
@@ -89,21 +91,21 @@
     <view class="page__title color-bright bold">您现在的精神状态是？</view>
     <view class="page__desc"></view>
   </view>
-  <view class="item-list">
+  <view class="item-list two">
     <button
-            wx:for="{{10}}" wx:for-index="indexS" wx:for-item="num" wx:key="index"
+            wx:for="{{stateTxt}}" wx:for-index="indexS" wx:for-item="txt" wx:key="indexS"
             class="weui-btn mini-btn"
             bindtap="clickMentality"
             type="default"
             size="mini"
             hover-class="item-on"
             hover-stay-time="20000"
-            data-value="{{num+1}}"
-    >{{num+1}}</button>
+            data-value="{{10 - indexS}}"
+    ><text class="gray4">{{10 - indexS}}分</text> {{txt}}</button>
   </view>
-  <view class="page__hd" bindtap="showDialog">
-    <view class="align-c gray4">查看打分标准</view>
-  </view>
+  <!--<view class="page__hd" bindtap="showDialog">-->
+    <!--<view class="align-c gray4">查看打分标准</view>-->
+  <!--</view>-->
 </view>
 
 <!--文章弹窗组件-->
@@ -116,7 +118,11 @@
   <view class="page__hd">
     <view class="page__title color-bright">{{item.txt}}</view>
     <view class="page__desc">您现在有多大的意愿做这件事呢？</view>
+      <view class="page__desc pt20">1：不愿意去做 ~ 10：非常想去做</view>
   </view>
+    <!--<view class="page__hd">-->
+        <!--<view class="align-c">1：不愿意去做；10：非常想去做</view>-->
+    <!--</view>-->
   <view class="item-list">
     <button
             wx:for="{{10}}" wx:for-index="indexS" wx:for-item="num" wx:key="index"
@@ -132,7 +138,7 @@
     >{{num+1}}</button>
 
     <!--<block wx:if="{{!item.isDelay}}">-->
-    <block wx:if="{{item.itemTitle=='学习' || item.itemTitle=='工作' || item.itemTitle=='锻炼' || item.itemTitle=='日常/家务'}}">
+    <!--<block wx:if="{{item.itemTitle=='学习' || item.itemTitle=='工作' || item.itemTitle=='锻炼' || item.itemTitle=='日常/家务'}}">
     <button
             class="weui-btn mini-btn finish"
             bindtap="clickItem"
@@ -144,18 +150,16 @@
             data-index="{{index}}"
             data-value="OK"
     >已完成</button>
-    </block>
+    </block>-->
     <!--</block>-->
   </view>
 
-  <view class="page__hd">
-    <view class="align-c gray4">1：不愿意去做；10：非常想去做</view>
-  </view>
+
 </view>
 </block>
 </block>
   <!--完成点赞弹框-->
   <view wx:if="{{isShow_zan}}" class="finish-box flex-row">
-    <image  src="../../css/zan.png"></image>
+    <image  src="../../css/img/zan.png"></image>
   </view>
 </block>

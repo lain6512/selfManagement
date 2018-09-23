@@ -1,0 +1,101 @@
+<!--index.wxml-->
+<view class="container">
+  <view  class=" bgcolor-white p10 border-b" data-dpr="normal" >
+    策略：60分原则
+  </view>
+
+
+      <view wx:if="{{state == 0}}" class="align-c bgcolor-white pt20  pb60">
+
+        <view class="p10 plr20 pb10 align-l color-bright">
+          这件事情，完成结果达到完美的100分，是怎么样的？
+        </view>
+        <view class="weui-cells weui-cells_after-title align-l mt10">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <textarea
+                      bindblur = "txt1blur"
+                      class="weui-textarea"
+                      placeholder-class = "placeholder"
+                      placeholder="请简单描述下"
+                      value="{{txt100}}"
+                      style="height: 3.3em" />
+              <!--<view class="weui-textarea-counter">0/200</view>-->
+            </view>
+          </view>
+        </view>
+
+        <view class="btn-list pt20 flex-center " bindtap="click1">
+            <button class="weui-btn flex-row enter-btn">
+              <view class="title">确定</view>
+            </button>
+        </view>
+
+      </view>
+
+
+  <view  wx:if="{{state == 1}}"  class="align-c bgcolor-white  pb60">
+
+    <view class="p10 plr20 pb10 align-l">
+      <text class="color-bright">100分：</text>
+      <text>{{txt100}}</text>
+      <view class="color-bright pt10">如果你只需要达到60分,是怎么样的？</view>
+    </view>
+    <view class="weui-cells weui-cells_after-title align-l">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <textarea
+                  bindblur = "txt2blur"
+                  class="weui-textarea"
+                  placeholder-class = "placeholder"
+                  placeholder="请简单描述下"
+                  value="{{txt60}}"
+                  style="height: 3.3em" />
+          <!--<view class="weui-textarea-counter">0/200</view>-->
+        </view>
+      </view>
+    </view>
+
+    <view class="btn-list pt20 flex-center " bindtap="click2">
+      <button class="weui-btn flex-row enter-btn">
+        <view class="title">确定</view>
+      </button>
+    </view>
+
+  </view>
+
+  <view  wx:if="{{state == 2}}"  class="bgcolor-white align-c ">
+    <view class="  pt40 pb50 plr20 align-l">
+      <view >
+        <text data-dpr="normal" class="gray1">100分完美结果：</text>
+        <text data-dpr="normal" class="un-line">{{txt100}}</text>
+      </view>
+      <view class="color-red mt20 f-tips-box">
+        <view data-dpr="normal" class="gray1">60分结果：</view>
+        <text  data-dpr="m">{{txt60}}</text>
+      </view>
+      <view  class="pt20 align-c gray1" data-dpr="normal">请按60分预期结果开始行动！</view>
+    </view>
+
+    <view class="btn-list flex-center " bindtap="click3">
+      <button class="weui-btn flex-row enter-btn">
+        <view class="title">好</view>
+      </button>
+    </view>
+
+      <view class="align-c gray4 pt20 pb50" data-dpr="normal" bindtap="click4">修改</view>
+
+
+  </view>
+
+  <view wx:if="{{state == 2}}"  class="f-book" >
+    <view class="text1 gray4 align-l" >
+      策略出自《超级个体 - 高效能人士的自我修炼》专栏
+    </view>
+    <view class="text2 gray4 align-r" >
+      --- 主讲 古典
+    </view>
+  </view>
+
+</view>
+

@@ -1,0 +1,69 @@
+<!--index.wxml-->
+<view class="container">
+  <view  class=" bgcolor-white p10 border-b" data-dpr="normal" >
+    策略：后果刺激法
+  </view>
+
+
+      <view wx:if="{{state == 0}}" class="align-c bgcolor-white pt20  pb60">
+
+        <view class="p10 plr20 pb10 align-l color-bright">
+          如果没有完成，会有什么不好的后果？
+        </view>
+        <view class="weui-cells weui-cells_after-title align-l mt10">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <textarea
+                      bindblur = "txt1blur"
+                      class="weui-textarea"
+                      placeholder-class = "placeholder"
+                      placeholder="请写出来"
+                      value="{{txt}}"
+                      style="height: 3.3em" />
+            </view>
+          </view>
+        </view>
+
+        <view class="f-btn-list pt20 flex-center " bindtap="click1">
+            <button class="weui-btn flex-row enter-btn">
+              <view class="title">确定</view>
+            </button>
+        </view>
+
+      </view>
+
+
+  <view  wx:if="{{state == 1}}"  class="bgcolor-white align-c ">
+    <view class="  pt40 pb50 plr30 align-l">
+
+      <view  class="pt20 gray1" data-dpr="normal">如果没有完成的后果：</view>
+      <view class="color-red  mt10 f-tips-box">
+        <text  data-dpr="l">{{txt}}</text>
+      </view>
+
+      <view  class="pt20 align-c gray1" data-dpr="normal">为了不让这种情况发生，开始行动吧~</view>
+
+    </view>
+
+    <view class="f-btn-list pt10 flex-center " bindtap="click3">
+      <button class="weui-btn flex-row enter-btn">
+        <view class="title">好</view>
+      </button>
+    </view>
+
+      <view class="align-c gray4 pt20 pb50" data-dpr="normal" bindtap="click4">修改</view>
+
+
+  </view>
+
+  <view wx:if="{{state == 1}}"  class="f-book" >
+    <view class="text1 gray4 align-l" >
+      策略出自《超级个体 - 高效能人士的自我修炼》专栏
+    </view>
+    <view class="text2 gray4 align-r" >
+      --- 主讲 古典
+    </view>
+  </view>
+
+</view>
+

@@ -9,7 +9,7 @@ Page({
 
 
     inputValue:'',
-    itemList:['学习', '运动', '工作', '日常/家务', '娱乐','吃东西'],
+    itemList:['学习', '锻炼', '工作', '日常/家务', '娱乐','吃东西'],
     itemTitle:'学习',
     // frequencyList:['每天','单次事项'],
     frequencyList:['每天'],
@@ -106,22 +106,20 @@ Page({
     // console.log("itemMould:")
     // console.log(app.Data.itemMould)
 
-
-
     // return
 
     // wx.showLoading({icon: 'loading', mask:true});
 
     var val = this.data.inputValue
-    var type= this.data.type
+    var type= this.data.itemTitle
     var mouldArr = app.Data.itemMould
     var frequency = this.data.frequency
     var isDelay = this.data.checkboxItems[0].checked
     var itemType = this.data.itemTitle
 
 
-    // console.log(val+'|'+type)
-    // console.log("frequency:"+frequency+" isDelay:"+isDelay)
+    console.log(val+'|'+type)
+    console.log("frequency:"+frequency+" isDelay:"+isDelay)
 
     if(val ==''){
       wx.showToast({
@@ -130,8 +128,6 @@ Page({
       });
       return
     }
-
-
 
     mouldArr.forEach(function (item, index) {
       item.items.forEach(function (i, n) {
@@ -205,7 +201,9 @@ Page({
   },
   //更改记录缓存
   changeRecordlist:function (val) {
-    var recordList = wx.getStorageSync('recordList')
+    // var recordList = wx.getStorageSync('recordList')
+    var recordList = app.Data.recordList
+
     recordList.push({
       "selected":true,
       "txt": val,
@@ -215,12 +213,10 @@ Page({
       itemTitle:this.data.itemTitle,
       frequency:this.data.frequency
     })
+    app.Data.recordList = recordList
 
-    wx.setStorageSync('recordList', recordList)
     wx.hideLoading()
-    wx.navigateTo({
-      url: '../list/list'
-    })
+    this.linkList()
   },
 
   //第一次进入保存
@@ -237,9 +233,12 @@ Page({
     // console.log("obj:")
     // console.log(obj)
     app.Data.itemInfoFirst =obj
-    wx.redirectTo ({
-      url: '../listEdit/listEdit'
-    })
-
+    this.linkList()
   },
+  //linkTo 列表页
+  linkList () {
+    wx.navigateTo({
+      url: '../list/list?delayId=' + app.Data.delayId + '&title=' + app.Data.delayItem.dataInfo.title + '&action=' + true
+    })
+  }
 })

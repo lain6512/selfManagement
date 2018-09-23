@@ -1,0 +1,54 @@
+<!--index.wxml-->
+<scroll-view class="container">
+  <view class="">
+
+    <block wx:for="{{dataList}}" wx:for-index="index" wx:for-item="item" wx:key="item">
+    <view class="habit-list">
+      <view class="day-box flex-left">
+
+        <block wx:if="{{item.info.day == '第一次创建'}}">
+          <view  class="day">
+            <blockc  wx:if="{{type == 1}}">👍 </blockc>
+            第一次记录
+          </view>
+        </block>
+
+        <block wx:elif="{{item.info.day == '连续记录'}}">
+          <view  class="day">
+            <blockc  wx:if="{{type == 1}}">✌ </blockc>
+            连续记录
+          </view>
+        </block>
+
+        <block wx:else="">
+          <view  class="day">{{item.info.day}}</view>
+          <view wx:if="{{index < 3}}"  class="tip gray1">距离上一次</view>
+        </block>
+
+
+        <view class="tip gray1"></view>
+      </view>
+      <view class="box ">
+        <view class="flex-two">
+          <view class="title color-bright">{{item.title}}</view>
+          <view class="time gray4" data-dpr="s">{{item.createdAt}}</view>
+        </view>
+
+        <view wx:if="{{item.introduce}}" class="txt pt5" data-dpr="s">{{item.introduce}}</view>
+      </view>
+
+    </view>
+    </block>
+
+
+  </view>
+  <view wx:if="{{endData}}" class="weui-loadmore weui-loadmore_line weui-loadmore_dot">
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line weui-loadmore__tips_in-dot"></view>
+  </view>
+</scroll-view>
+<!--底部按钮-->
+<view class="f-bottom-btn flex">
+  <navigator class="f-btn mt10" open-type="navigateBack">返 回</navigator>
+  <navigator class="f-btn mt10" url="/pages/habitList/habitList?type={{type}}">全部记录</navigator>
+</view>
+

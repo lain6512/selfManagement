@@ -1,0 +1,48 @@
+.container {
+    height: 100%;
+}
+.item-btn {
+    width: 312px;
+    /*height: 46px;*/
+    line-height: 16px;
+    margin: 20px auto;
+    padding: 4px 0 0 0;
+    background: #ffffff;
+    padding: 30px 20px 20px 20px;
+    text-align: left;
+    position: relative;
+    border:0 none;
+}
+.item-btn::after{
+    z-index: 0;
+    content:'';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    /*background: #e61600;*/
+    transform-origin: 0 0;
+    transform: scale(.5,.5);
+    border: 1px solid rgb(212, 217, 216);
+    border-radius: 10px;
+}
+
+.item-btn .title {
+    font-size: 16px;
+    line-height: 28px;
+    color: #1aad19;
+}
+
+.item-btn .txt {
+    font-size: 11px;
+    color: #999999;
+}
+.item-btn .tips {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 11px;
+    color: #999999;
+}

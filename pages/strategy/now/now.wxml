@@ -1,0 +1,164 @@
+<!--index.wxml-->
+<scroll-view class="container">
+  <view  class=" bgcolor-white p10 border-b" data-dpr="normal" >
+    策略：立即行动法
+  </view>
+
+
+      <view wx:if="{{state == 0}}" class="align-c bgcolor-white pt60 pb60">
+        现在时刻，你所在的环境，是否有条件进行
+        <view class="color-bright" data-dpr="l">{{title}} ?</view>
+
+
+        <view class="btn-list pt20 " bindtap="click1">
+          <view class="flex-two">
+
+            <button class="weui-btn flex-row enter-btn"  data-type="2">
+              <view class="title">目前无法进行</view>
+            </button>
+
+            <button class="enter-btn flex-row weui-btn">
+              <view class="title">是，条件满足</view>
+            </button>
+
+          </view>
+        </view>
+      </view>
+
+
+  <view  wx:if="{{state == 1}}"  class="align-c bgcolor-white pt60 pb60">
+    <view class="color-bright pb20">再次确认</view>
+    现在时刻的你，所在的环境，是否有条件进行
+    <view class="color-bright" data-dpr="l">{{title}} ?</view>
+
+
+    <view class="btn-list pt20 ">
+      <view class="flex-two">
+
+        <button class="weui-btn flex-row enter-btn" bindtap="click2" data-type="2">
+          <view class="title">不，目前无法进行</view>
+        </button>
+
+        <button class="enter-btn flex-row weui-btn" bindtap="click3">
+          <view class="title">是的，可以进行</view>
+        </button>
+
+      </view>
+    </view>
+  </view>
+
+  <!--马上行动-->
+  <view  wx:if="{{state == 2}}"  class="bgcolor-white align-c pb60">
+    <view class="go border-b pt10 pb10">马！上！行！动！</view>
+
+    <view class="align-l p20">
+
+      <view class="txt-li">[借口] “我明天更有心思做这个”</view>
+      <view class="txt-li">[借口] “我剩余很多时间”</view>
+      <view class="txt-li">[借口] “我今晚几小时就能做完了”</view>
+      <view class="txt-li">[借口] “等下在做”</view>
+      <view class="txt-li">[借口] “不急，还有好几天”</view>
+      <view class="txt-li">[借口] “等我做完 XXXX 再去做”</view>
+      <view class="txt-li">[借口] “今天那么晚，就算了吧”</view>
+      <view class="txt-li">[借口] “现在有点累...”</view>
+      <view class="txt-li">[借口] “有点不想动”</view>
+      <view class="txt-li">[借口] “等两分钟就去”</view>
+      <view>......</view>
+      <view>...</view>
+    </view>
+
+    <view class="pb10">
+      <text class="color-bright" data-dpr="m"> 一旦 </text>
+      <text class="gray1" data-dpr="s">你有类似以上想法，</text>
+      <text class="color-bright" data-dpr="m"> 就 </text>
+      <text class="gray1" data-dpr="s">马上去做，没有任何借口</text>
+    </view>
+
+
+    <view class="f-btn-list pt20 flex-center " bindtap="click4">
+      <button class="weui-btn flex-row enter-btn">
+        <view class="title">
+          <text class="color-red color-red"  data-dpr="m">好！马上去做！</text>
+        </view>
+      </button>
+    </view>
+
+    <view class="f-btn-list pt20 pb20 flex-center " bindtap="click5">
+      <button class="weui-btn flex-row enter-btn block">
+        <view class="title">
+          <text class="gray1"  data-dpr="s">不，我要拖一会</text>
+        </view>
+      </button>
+    </view>
+
+  </view>
+
+
+  <!--显示原因-->
+  <view wx:if="{{state == 3}}" class="bgcolor-white p20">
+    <view class="pb10 gray1" data-dpr="s">
+      我不能进行
+      <text >“{{title}}”</text>
+      的理由：
+    </view>
+
+    <view class="border-b border-t pt10 pb10" data-dpr="normal">
+      {{textareaValue}}
+    </view>
+    <view class="color-bright pt20" data-dpr="s">请重新认真再看一遍和思考，真的是阻碍你行动的理由吗？</view>
+
+    <view class="f-btn-list pt20 flex-center " bindtap="click4">
+      <button class="weui-btn flex-row enter-btn">
+        <view class="title">
+          <text class="color-red color-red" data-dpr="m">马上去做！</text>
+        </view>
+      </button>
+    </view>
+
+    <view class="f-btn-list pt20 flex-center " bindtap="goBack">
+      <text class="gray4 " data-dpr="s">我要放弃</text>
+    </view>
+  </view>
+
+
+  <view wx:if="{{state == 2}}"  class="f-book" >
+    <view class="text1 gray4 align-l" >
+      出自《战胜拖延症》第六章
+    </view>
+    <view class="text1 gray4 align-r" >
+      --- [加] 蒂莫西 • 皮切尔博士著
+    </view>
+  </view>
+
+  <!--完成点赞弹框-->
+  <view wx:if="{{isShow_zan}}" class="finish-box flex-row" bindtap="hideZan">
+    <image  src="../../../css/img/zan.png"></image>
+  </view>
+
+  <!--输入框 弹窗-->
+  <view wx:if="{{isShow_textarea}}" class="weui-cells weui-cells_after-title textarea-box">
+    <view class="plr20 pt10 pb10" data-dpr="s">输入实在不能去做的理由，理由不少于200字！</view>
+    <view class="weui-cell">
+      <view class="weui-cell__bd">
+        <textarea
+                value="{{textareaValue}}"
+                bindinput="bindTextAreaBlur"
+                class="weui-textarea"
+                placeholder-class="gray4"
+                auto-focus=true
+                maxlength=-1
+                placeholder="不少于200字"
+                style="height: 7.3em" />
+      </view>
+    </view>
+    <view class="align-r mt20 pr20">
+      <view class="f-btn gray4 mr15" bindtap="submitTextarea">确 定</view>
+      <view class="f-btn green" bindtap="closeTextarea">不写了！</view>
+
+    </view>
+  </view>
+  <!--/输入框 弹窗-->
+  <view wx:if="{{isShow_textarea}}" class="mask"></view>
+
+</scroll-view>
+

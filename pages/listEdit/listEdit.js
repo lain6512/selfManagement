@@ -1,5 +1,6 @@
 //index.js
 //获取应用实例
+var Init = require('../../utils/initUserInfo.js');
 var Bmob = require('../../utils/bmob.js')
 const app = getApp()
 
@@ -9,53 +10,32 @@ Page({
     User:app.User,
     loading:app.loading,
     itemMould:[],
+    strategy:'strategy_01', //拖延策略编号
 
     initFinish:false,//初始化是否完成
 
     motto: 'details',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
 
   },
 
-  onLoad: function () {
-    console.log("User:")
-    // console.log(this.data.User)
-
+  onLoad: function (options) {
     this.setData({
-      User: app.User,
-      initFinish:false
+      delayId:options.delayId,
+      title:options.title,
     })
-    app.UserCallBack = res => {
-      console.log("执行 Callback ")
-      this.setData({
-        User: res,
-        hasUserInfo: true
-      })
-    }
 
-    //初始化模板后回调
-    /*app.initItemCallback = Data => {
-      console.log("执行 Callback ")
-      this.setData({
-        itemMould: Data.itemMould
-      })
-      console.log("Data:")
-      console.log(Data)
-    }*/
-    // this.getDataMould()
-    this.initItemMould()
+    let that = this
+    Init.user(app,that,state=> {
+      console.log('app:')
+      console.log(app)
+      that.initItemMould()
+    })
   },
   onReady: function () {
-    //获得article组件
-    this.article = this.selectComponent("#article");
   },
 
-  //打分标准弹框
-  showDialog() {
-    this.article.showPopupAricle();
-  },
   //点击选项
   clickItem:function (e) {
     console.log("点击")
@@ -90,8 +70,18 @@ Page({
     console.log(app.Data.itemInfoFirst)
 
 
-    wx.setStorageSync('recordList', '')
-    wx.setStorageSync('mentality', '')
+    // wx.setStorageSync('recordList', '')
+    // wx.setStorageSync('mentality', '')
+
+    var obj={
+      selected:true,
+      txt: this.data.inputValue,
+      show:true,
+      value:0,
+      frequency:this.data.frequency,
+      itemTitle:this.data.itemTitle,
+      isDelay:true,
+    }
 
 
     var itemInfoFirst = app.Data.itemInfoFirst
@@ -147,11 +137,11 @@ Page({
       },
     ]
 
-    itemTypeArr.forEach(function (item, index) {
-      if(item.title == itemInfoFirst.itemTitle){
-        item.items.push(itemInfoFirst)
-      }
-    })
+    // itemTypeArr.forEach(function (item, index) {
+    //   if(item.title == itemInfoFirst.itemTitle){
+    //     item.items.push(itemInfoFirst)
+    //   }
+    // })
 
     this.setData({
       itemMould: itemTypeArr
@@ -162,15 +152,15 @@ Page({
   //保存提交
   saveGo:function () {
     console.log("保存")
-    // console.log(this.data.itemMould)
-    // console.log(this.data.User)
-    // return
+    console.log(this.data.itemMould)
+    console.log(app.User.id)
+
     wx.showLoading({icon: 'loading', mask:true});
 
     var that = this
-    var type='1' //1:非工作常规日；2：工作日下班后；3，工作日上班时间
-    var creatorId = this.data.User.id
-    var creatorName = this.data.User.attributes.creatorName
+    var type ='1' //1:非工作常规日；2：工作日下班后；3，工作日上班时间
+    var creatorId = app.User.id
+    var creatorName = app.User.attributes.nickName
 
     var Mould = Bmob.Object.extend("item_mould_list");
     var mould = new Mould();
@@ -184,10 +174,8 @@ Page({
         console.log("添加 模板 成功")
         console.log(resData)
         app.Data.itemMould = resData.attributes.itemTypeArr
-        wx.hideLoading()
-        wx.navigateTo({
-          url: '../list/list'
-        })
+        that.saveDataDelay()
+
       },
       error: function(result, error) {
         console.log("添加 模板 失败")
@@ -197,4 +185,43 @@ Page({
       }
     });
   },
+  //修改拖延项表
+  saveDataDelay () {
+    let that = this
+    let id = this.data.delayId
+    var Mould = Bmob.Object.extend("delay_list");
+    var query = new Bmob.Query(Mould);
+
+    query.get(id,{
+      success: function (data) {
+        console.log("查找 拖延项 成功")
+        console.log(data);
+
+        let info = data.attributes.dataInfo
+        info[that.data.strategy] = {
+          initMould:true
+        }
+        data.set('dataInfo',info)
+        data.save(null,{
+          success: function (res) {
+            console.log("修改拖延项表 成功")
+            console.log(res)
+
+            app.Data.delayItem = res.attributes // 保存到全局
+            wx.hideLoading()
+            wx.redirectTo({
+              url: '../list/list?delayId=' + that.data.delayId + '&title=' +  that.data.title
+            })
+
+          },
+          error: function (err) {
+            console.log("修改拖延项表 失败")
+          },
+        })
+
+      },
+    });
+
+
+  }
 })

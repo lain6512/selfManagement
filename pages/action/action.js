@@ -10,6 +10,8 @@ Page({
     },
     recordList: [],//记录列表
     result:[],//计算结果
+    delayId:'',
+    title:'',
     state:[
       "基本无法做任何事，请注意身体！健康最重要！",
       "基本无法做任何事，请注意身体！健康最重要！",
@@ -27,13 +29,22 @@ Page({
   },
   onLoad: function (options) {
 
-    var recordList = wx.getStorageSync('recordList')
-    var val = wx.getStorageSync('mentality').value
+    // var recordList = wx.getStorageSync('recordList')
+    // var val = wx.getStorageSync('mentality').value
+
+    var recordList = app.Data.recordList
+    var val = app.Data.mentalityVal
+
+    console.log('action recordList')
+    console.log(recordList)
+
     this.setData({
       recordList: recordList,
       mentality:{
         value:val
-      }
+      },
+      delayId:options.delayId,
+      title:options.title
     })
     var result = compute.start(val,recordList)//开始计算
     console.log("result:")
@@ -48,4 +59,11 @@ Page({
       })
     }
   },
+  //linkTo 拖延项
+  linkDelayIndex: function() {
+    wx.redirectTo({
+      url: '/pages/list/list?delayId=' + this.data.delayId + '&title=' + this.data.title + '&action=' + true
+    })
+  },
+
 })

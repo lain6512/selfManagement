@@ -1,0 +1,42 @@
+.container{
+    background: #ffffff;
+}
+.btn-list{
+    height: 430px;
+}
+.btn-list.sort{
+    width: 700px;
+    height: 90px;
+}
+.textarea-box{
+    width: 100%;
+    height: 40%;
+    background: #ffffff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 21;
+    padding: 0px 0;
+}
+.mask{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    background: rgba(0,0,0,0.5);
+}
+.history {
+    position: absolute;
+    right: 0;
+    top: 10px;
+    z-index:10;
+
+}
+.open {
+    position: absolute;
+    top: 6px;
+    right: 10px
+;
+}

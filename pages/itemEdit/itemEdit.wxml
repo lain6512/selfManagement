@@ -75,7 +75,7 @@
     </checkbox-group>
   </view>-->
 
-  <view class="page__bd page__bd_spacing mt40" >
+  <view  class="page__bd page__bd_spacing mt40" >
     <button class="weui-btn" type="primary" bindtap="saveGo" plain="true">修改</button>
     <view class="gray4 align-c mt40" bindtap="delGo">删除</view>
   </view>

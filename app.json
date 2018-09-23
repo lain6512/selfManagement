@@ -1,17 +1,55 @@
 {
   "pages":[
+    "pages/index/index",
     "pages/list/list",
     "pages/listEdit/listEdit",
     "pages/itemAdd/itemAdd",
     "pages/itemEdit/itemEdit",
-    "pages/index/index",
+    "pages/delayHome/delayHome",
+    "pages/delayAddItem/delayAddItem",
+
     "pages/details/details",
-    "pages/action/action"
+    "pages/action/action",
+    "pages/recordSignIn/recordSignIn",
+    "pages/habitAdd/habitAdd",
+    "pages/habitItemList/habitItemList",
+    "pages/habitList/habitList",
+    "pages/dynamic/dynamic",
+
+    "pages/tool/target/target",
+
+    "pages/strategy/sixty/sixty",
+    "pages/strategy/reward/reward",
+    "pages/strategy/bad/bad",
+    "pages/strategy/good/good",
+    "pages/strategy/subdivide/subdivide",
+    "pages/strategy/now/now"
   ],
   "window":{
-    "backgroundTextStyle":"light",
+    "backgroundTextStyle":"dark",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#1aad19",
+    "borderStyle": "#666666",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "image/icon_API.png",
+        "selectedIconPath": "image/icon_API_HL.png",
+        "text": "自律行动"
+      },
+      {
+        "pagePath": "pages/dynamic/dynamic",
+        "iconPath": "image/list.png",
+        "selectedIconPath": "image/list1.png",
+        "text": "小伙伴们"
+      }
+
+    ]
   }
 }

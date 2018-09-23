@@ -1,0 +1,56 @@
+<!--index.wxml-->
+<view class="container">
+
+
+    <view class="align-c pt30 pb20 color-bright" data-dpr="l">现在哪件事情在拖延？</view>
+
+    <view class="gray1 p10" data-dpr="normal" >
+        您想要做的事情是：
+    </view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__bd">
+        <input class="weui-input"
+               bindinput="bindKeyInput"
+               focus="true"
+               placeholder-class="placeholder"
+               maxlength="16"
+               bindconfirm="saveGo"
+               placeholder="请按示例写下一件具体事情，6个字以内"/>
+      </view>
+    </view>
+  </view>
+
+    <view class="gray4 p10" data-dpr="normal" >
+        示例：写总结、写论文、记单词、去跑步、拖地板、写数学作业、看书 ......
+    </view>
+
+  <!--类别-->
+<!--  <view class="weui-cells weui-cells_after-title mt10 gray1">
+    <view class="weui-cell weui-cell_select" bindtap="open">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">类别：</view>
+      </view>
+      <view class="weui-cell__bd">
+        <view class="weui-select weui-select_in-select-after">{{itemTitle}}</view>
+      </view>
+    </view>
+  </view>-->
+
+  <view class="weui-cells weui-cells_after-title mt20" bindtap="open">
+    <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">类别：</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">{{itemTitle}}</view>
+    </view>
+  </view>
+
+  <view class="felx p20 mt30 align-c">
+    <button class="weui-btn f-submit-btn"
+            open-type="getUserInfo"
+            bindgetuserinfo="saveGo"
+            type="primary">
+      确 定</button>
+  </view>
+
+</view>
+

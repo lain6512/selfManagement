@@ -8,8 +8,9 @@ Page({
     accounts: ["微信号", "QQ", "Email"],
     accountIndex: 0,
     inputValue:'',
+    isDelay: false,
 
-    itemList:['学习', '运动', '日常/家务', '娱乐','吃东西'],
+    itemList:['学习', '锻炼', '日常/家务', '娱乐','吃东西'],
     type:'',
     // frequencyList:['每天','单次事项','工作日','节假日'],
     frequencyList:['每天'],
@@ -22,6 +23,8 @@ Page({
     itemInfo:'',
     itemTitle:'',
     itemIndex:'',
+    delayId:'',
+    title:'',
 
 
 
@@ -32,18 +35,21 @@ Page({
   },
   //初始化编辑项
   initDataItem:function (options) {
-
+    let that = this
     if(options.index ==undefined || options.index == '' || !options.index){
       wx.showModal({
         content: '网络不给力，加载有误',
         showCancel: false,
         success: function (res) {
-          if (res.confirm){wx.navigateTo({url: '/pages/list/list'})}
+          if (res.confirm){
+            that.linkList()
+          }
         }
       });
     }
 
-    var recordList = wx.getStorageSync('recordList')
+    // var recordList = wx.getStorageSync('recordList')
+    var recordList = app.Data.recordList
     var checkboxItems = this.data.checkboxItems
     checkboxItems[0].checked = recordList[options.index].isDelay
     this.setData({
@@ -55,6 +61,14 @@ Page({
       itemIndex:options.index
 
     })
+
+    //判断是否拖延项，禁止修改
+    if (recordList[options.index].isDelay == true) {
+      this.setData({
+        isDelay: true
+      })
+
+    }
   },
   //选择类别
   open: function () {
@@ -129,7 +143,7 @@ Page({
     console.log(app.Data.itemMould)
 
     // return
-    // wx.showLoading({icon: 'loading', mask:true});
+    wx.showLoading({icon: 'loading', mask:true});
 
     var val = this.data.inputValue
     var type= this.data.type
@@ -147,6 +161,14 @@ Page({
       wx.showToast({
         icon:'none',
         title: '不能为空'
+      });
+      return
+    }
+
+    if(this.data.isDelay){
+      wx.showToast({
+        icon:'none',
+        title: '拖延项暂不能修改'
       });
       return
     }
@@ -171,7 +193,7 @@ Page({
     // return
 
     var that = this
-    var type= app.Data.itemMouldType //1:非工作常规日；2：工作日下班后；3，工作日上班时间
+    var type = app.Data.itemMouldType //1:非工作常规日；2：工作日下班后；3，工作日上班时间
     var itemMouldId = app.Data.itemMouldId
     var creatorName = app.User.attributes.creatorName
 
@@ -199,7 +221,9 @@ Page({
               content: '操作失败',
               showCancel: false,
               success: function (res) {
-                if (res.confirm){wx.navigateTo({url: '/pages/list/list'})}
+                if (res.confirm){
+                  that.linkList()
+                }
               }
             });
           }
@@ -215,7 +239,8 @@ Page({
   },
   //2.保存-更改记录缓存
   changeRecordlist:function (val) {
-    var recordList = wx.getStorageSync('recordList')
+    // var recordList = wx.getStorageSync('recordList')
+    var recordList = app.Data.recordList
     var n = this.data.itemIndex
 
     recordList[n].txt = this.data.inputValue
@@ -224,16 +249,25 @@ Page({
     recordList[n].isDelay = this.data.checkboxItems[0].checked
 
 
-    wx.setStorageSync('recordList', recordList)
+    // wx.setStorageSync('recordList', recordList)
+    app.Data.recordList = recordList
     wx.hideLoading()
-    wx.navigateTo({
-      url: '../list/list'
-    })
+    this.linkList()
   },
 
   //1.删除
   delGo:function () {
     var that = this
+
+    if(this.data.isDelay){
+      wx.showToast({
+        icon:'none',
+        title: '拖延项不能删除'
+      });
+      return
+    }
+
+
     wx.showModal({
       title: '提示',
       content: '是否要删除？',
@@ -248,10 +282,10 @@ Page({
   },
   //2.删除 - 删除数据表
   saveDataDel:function () {
-
+    wx.showLoading({icon: 'loading', mask:true});
     var mouldArr =app.Data.itemMould
     var indexS = this.data.itemIndex
-    var recordList = wx.getStorageSync('recordList')
+    var recordList = app.Data.recordList
     var itemInfo =this.data.itemInfo
 
     if(itemInfo.isDelay ==true){
@@ -271,9 +305,6 @@ Page({
         }
       }
     })
-
-    console.table("mouldArr")
-    console.table(mouldArr)
 
     var that = this
     var type= app.Data.itemMouldType //1:非工作常规日；2：工作日下班后；3，工作日上班时间
@@ -304,7 +335,9 @@ Page({
               content: '操作失败',
               showCancel: false,
               success: function (res) {
-                if (res.confirm){wx.redirectTo({url: '/pages/list/list'})}
+                if (res.confirm) {
+                  that.linkList()
+                }
               }
             });
           }
@@ -320,15 +353,24 @@ Page({
   },
   //3.删除 - 更改记录缓存
   changeRecordlistDel:function () {
-    var recordList = wx.getStorageSync('recordList')
+    // var recordList = wx.getStorageSync('recordList')
+    var recordList = app.Data.recordList
     recordList.splice(this.data.itemIndex,1)
 
-    wx.setStorageSync('recordList', recordList)
+    // wx.setStorageSync('recordList', recordList)
+    app.Data.recordList = recordList
     wx.hideLoading()
-    wx.navigateTo({
-      url: '../list/list'
-    })
+    this.linkList()
   },
+  //linkTo 列表页
+  linkList () {
+    console.log('跳转链接')
+    setTimeout(function (){
+      wx.navigateTo({
+        url: '../list/list?delayId=' + app.Data.delayId + '&title=' + app.Data.delayItem.dataInfo.title + '&action=' + true
+      })
+    }.bind(this), 400)
+  }
 
 
 

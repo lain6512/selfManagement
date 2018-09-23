@@ -1,0 +1,46 @@
+<!--index.wxml-->
+<view class="container">
+    <view class="habit-list">
+
+      <block wx:for="{{dataList}}" wx:for-index="index" wx:for-item="item" wx:key="itemId">
+      <navigator
+              url="/pages/habitItemList/habitItemList?id={{item.itemId}}"
+              class="box ">
+        <view class="flex-two">
+          <view class="title flex-left">
+            <text class="gray1" data-dpr="normal">{{item.title}}</text>
+            <view class="day ml10">x {{item.count}}</view>
+          </view>
+
+          <view wx:if="{{item.lastDay == '今天'}}" class="time gray1" data-dpr="s">
+            今天
+          </view>
+
+          <view wx:elif="{{item.lastDay == 0}}" class="time gray1" data-dpr="s">
+            昨天
+          </view>
+
+          <view wx:else="" class="time gray1" data-dpr="s">
+            距离上一次 <text class="color-bright" data-dpr="normal">{{item.lastDay}}</text> 天
+          </view>
+
+        </view>
+        <view wx:if="{{type == 1}}" class="txt pt5 color-bright" data-dpr="">
+          <text wx:for="{{item.count}}" wx:key="item" class="iconfont icon-jiangli w1"></text>
+        </view>
+        <view wx:else="" class="txt pt5 color-bright" data-dpr="">
+          <text wx:for="{{item.count}}" wx:key="item" class="iconfont icon-bqklt w1 color-bright3"></text>
+        </view>
+        <!--<view>{{item.updatedAt}}</view>-->
+      </navigator>
+      </block>
+      <view class="p30"></view>
+
+    </view>
+
+</view>
+<!--底部按钮-->
+<view class="f-bottom-btn flex">
+  <navigator class="f-btn mt10" open-type="navigateBack">返 回</navigator>
+</view>
+

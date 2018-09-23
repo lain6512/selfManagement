@@ -1,0 +1,26 @@
+.container{
+    /*background: #ffffff;*/
+}
+
+.habit-list .day-box{
+    padding: 10px 10px 0px 10px;
+}
+.habit-list .day{
+    /*width: 30px;*/
+    height: 22px;
+    line-height: 22px;
+    padding:0 7px;
+    border-radius: 4px;
+    text-align: center;
+    margin-right: 10px;
+    font-size: 12px;
+    border: #f5bbb8 1px solid;
+    color: #F56C6C;
+}
+.habit-list .box{
+    background: #fff;
+    border:#eee 1px solid;
+    border-radius: 7px;
+    margin: 10px 10px 10px 10px;
+    padding: 7px 15px;
+}

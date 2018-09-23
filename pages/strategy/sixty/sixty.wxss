@@ -1,0 +1,31 @@
+.btn-list {
+    width: 300px;
+    margin: 0 auto;
+}
+.btn-list .enter-btn {
+    width: 134px;
+    height: 46px;
+    line-height: 16px;
+    margin: 0;
+    padding: 4px 0 0 0 ;
+    background: #ffffff;
+    /*border:1px solid #f1f1f1 ;*/
+    /*border-radius: 7px;*/
+    /*text-align: center;*/
+}
+.btn-list .enter-btn .title {
+    font-size: 14px;
+    color: #1aad19;
+}
+.btn-list .enter-btn .txt {
+    font-size: 9px;
+    color: #999999;
+}
+.go {
+    font-size: 90px;
+    color: #ff2218;
+    font-weight:bold;
+}
+.txt-li {
+    text-decoration: line-through;
+}

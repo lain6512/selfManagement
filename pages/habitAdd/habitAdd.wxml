@@ -1,0 +1,126 @@
+<!--index.wxml-->
+<view class="container">
+
+  <!--弹出选框-->
+  <picker bindchange="bindPickerChange" value="{{indexPicker}}" range="{{arrayPicker}}">
+  <view class="gray4 open" data-dpr="s">
+    <text class="iconfont w1 icon-42"></text>
+  </view>
+  </picker>
+
+  <view wx:if="{{type == 1}}" class="p10 plr20">输入已完成的，你觉得积极有意义的事情：</view>
+  <view wx:if="{{type == 2}}" class="p10 plr20">记下一次不好的习惯：</view>
+
+
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__bd relative">
+        <view hidden="{{!isShow_itemLink}}" class="history">
+          <text  class="gray1 txt" data-dpr="normal" bindtap="linkHabitItemList">历史记录</text>
+          <text class="iconfont icon-right"></text>
+        </view>
+        <input
+            class="weui-input color-bright"
+            value="{{inputValue}}"
+            placeholder-class="placeholder"
+            placeholder="{{placeholderTxt[type-1]}}"
+            bindinput="inputOnKey"
+            confirm-type ='done'/>
+      </view>
+    </view>
+
+
+
+  </view>
+
+  <view wx:if="{{isShow_textarea}}" class="mask"></view>
+  <scroll-view scroll-y class="">
+    <view class="item-list3 btn-list mt10">
+    <view
+            wx:for="{{itemGoodHistory}}"   wx:key="item"
+            class="f-btn green  mr15 mt10"
+            type="default"
+            size="mini"
+            hover-class="item-on2"
+            hover-stay-time="1000"
+            data-type="0"
+            data-value="{{item.title}}"
+            data-type="{{item.type}}"
+            data-id="{{item.itemId}}"
+            data-isrecord="Y"
+            bindtap="tipsClick"
+    >✩ {{item.title}}</view>
+    <view
+            wx:for="{{itemGood}}"   wx:key="item"
+            class="f-btn mr15 mt10"
+            type="default"
+            size="mini"
+            hover-class="item-on"
+            hover-stay-time="1000"
+            data-value="{{item.title}}"
+            data-type="{{item.type}}"
+            data-id="{{item.objectId}}"
+            data-isrecord="N"
+            bindtap="tipsClick"
+    >{{item.title}}</view>
+      <view class="p30"></view>
+
+    </view>
+  </scroll-view>
+
+  <!--输入框 弹窗-->
+  <view wx:if="{{isShow_textarea}}" class="weui-cells weui-cells_after-title textarea-box">
+    <view class="weui-cell">
+      <view class="weui-cell__bd">
+        <textarea
+                value="{{textareaValue}}"
+                bindinput="bindTextAreaBlur"
+                class="weui-textarea"
+                placeholder-class="gray4"
+                auto-focus=true
+                placeholder="说出感受，自己给自己加油！"
+                style="height: 7.3em" />
+      </view>
+    </view>
+    <view class="align-r mt20 pr20">
+      <view class="f-btn mr15" bindtap="closeTextarea">取 消</view>
+      <view class="f-btn green" bindtap="submitTextarea">确 定</view>
+    </view>
+  </view>
+  <!--/输入框 弹窗-->
+
+  <!--勋章 弹窗-->
+  <view wx-if="{{isShow_medal}}" class="success-bg">
+    <view class="success-box">
+
+      <text class="iconfont icon-x icon-zs x" bindtap="close"></text>
+      <view class="medal-box big flex-center">
+        <view class="medal flex">
+          <text class="iconfont icon-jiangli icon color-bright"></text>
+        </view>
+        <text class="num color-bright">x 1</text>
+      </view>
+      <view class="color-bright" >记录成功！</view>
+
+      <!--<view data-dpr="s" class="mt20">> 查看</view>-->
+      <view class="mt20 plr30">
+        <view class="f-btn" bindtap="linkHabitItemList">查看</view>
+        <view class="gray1 pt20 pb20" data-dpr="normal" bindtap="showTextarea">写下此刻感受</view>
+      </view>
+
+    </view>
+  </view>
+
+  <!--底部按钮-->
+  <view class="f-bottom-btn flex">
+    <navigator class="txt-link gray1" open-type="navigateBack">返 回</navigator>
+    <button
+            open-type="getUserInfo"
+            bindgetuserinfo="recordStart"
+            class="weui-btn w1"
+            type="primary"
+    >"砰"的记录一下</button>
+    <view class="txt-link gray1" bindtap="linkHabitList">全部记录</view>
+  </view>
+
+</view>

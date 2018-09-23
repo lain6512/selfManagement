@@ -1,0 +1,170 @@
+<!--index.wxml-->
+<scroll-view class="container">
+  <view  class=" bgcolor-white p10 border-b" data-dpr="normal" >
+    我的目标(SMART原则)
+  </view>
+
+
+  <view wx:if="{{state == 0}}" class="align-c bgcolor-white pt20  pb60">
+
+
+    <view class="f-btn-list pt20 flex-center" bindtap="click1"  data-type="1">
+      <button class="weui-btn flex-row enter-btn per85">
+        <view class="title">近期一个月的目标</view>
+      </button>
+    </view>
+
+    <view class="f-btn-list pt20 flex-center " bindtap="click1" data-type="2">
+      <button class="weui-btn flex-row enter-btn per85">
+        <view class="title">半年的目标</view>
+      </button>
+    </view>
+
+    <view class="f-btn-list pt20 flex-center " bindtap="click1"  data-type="3">
+      <button class="weui-btn flex-row enter-btn per85">
+        <view class="title">长期一年目标</view>
+      </button>
+    </view>
+
+  </view>
+
+
+      <view wx:if="{{state == 1}}" class="align-c bgcolor-white pt20  pb60">
+
+        <view class="p10 plr20 pb10 align-l color-bright">
+          请写出你
+          <text wx:if="{{flag == '1' }}">近期一个月的目标</text>
+          <text wx:if="{{flag == '2' }}">半年的目标</text>
+          <text wx:if="{{flag == '3' }}">长期一年目标</text>
+        </view>
+        <view class="weui-cells weui-cells_after-title align-l mt10">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <textarea
+                      bindblur = "txt1blur"
+                      class="weui-textarea"
+                      placeholder-class = "placeholder"
+                      placeholder="请输入"
+                      value="{{txtInput}}"
+                      style="height: 3.3em" />
+            </view>
+          </view>
+        </view>
+
+        <view class="f-btn-list pt20 pb20 flex-center " bindtap="click2">
+            <button class="weui-btn flex-row enter-btn">
+              <view class="title">确定</view>
+            </button>
+        </view>
+
+        <view class="gray4 align-l p20" data-dpr="s">
+          * 请注意区分好 “目标” 与 “理想”、“愿望”、“愿景” 的区别
+        </view>
+
+      </view>
+
+
+    <view wx:if="{{state == 2}}" class="align-c bgcolor-white pt20  pb60">
+
+      <!--<block wx:for="{{txtArr}}"  wx:key="index">-->
+      <view class="p10 plr20 pb10 align-l">
+        <text class="gra1" data-dpr="normal">目标：</text>
+        <text class="color-red">{{txt}}</text>
+      </view>
+
+      <view class="p10 plr20 pb10 align-l">
+        {{txtArr[txtArrIndex]}}
+      </view>
+
+      <view class="f-btn-list pt20 flex-two " >
+        <button class="weui-btn flex-row enter-btn" bindtap="clickPass">
+          <view class="title"><text class="gray1">是</text></view>
+        </button>
+
+        <button class="weui-btn flex-row enter-btn" bindtap="clickEdit">
+          <view class="title">不，我要修改</view>
+        </button>
+      </view>
+      <!--</block>-->
+
+    </view>
+
+
+  <view wx:if="{{state == 3}}" class="bgcolor-white align-c ">
+    <view class="  pt10 pb20 plr30 align-l">
+
+      <!--目标1-->
+      <view class="pt20" data-dpr="normal">近期一个月的目标：</view>
+      <block wx:if="{{txt1}}">
+        <view class="color-red pt10 pb10 lh18">
+          <text>{{txt1}}</text>
+        </view>
+        <view class="gray1 pb10 border-b " data-dpr="s">
+          <text>☑具体　 ☑可衡量　 ☑可实现　 ☑相关性　 ☑有时限</text>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="pt10  pb10 border-b lh18"  bindtap="click4">
+          <button class="f-btn border-btn">去设置</button>
+        </view>
+      </block>
+
+
+
+      <!--目标2-->
+      <view class="pt20"  data-dpr="normal">半年的目标：</view>
+      <block wx:if="{{txt2}}">
+        <view class="color-red pt10 pb10 lh18">
+          <text>{{txt2}}</text>
+        </view>
+        <view class="gray1 pb10 border-b " data-dpr="s">
+          <text>☑具体　 ☑可衡量　 ☑可实现　 ☑相关性　 ☑有时限</text>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="pt10  pb10 border-b lh18"  bindtap="click4">
+          <button class="f-btn border-btn">去设置</button>
+        </view>
+      </block>
+
+      <!--目标3-->
+      <view class="pt20"  data-dpr="normal">长期一年目标：</view>
+      <block wx:if="{{txt3}}">
+        <view class="color-red pt10 pb10 lh18">
+          <text>{{txt3}}</text>
+        </view>
+        <view class="gray1 pb10 border-b " data-dpr="s">
+          <text>☑具体　 ☑可衡量　 ☑可实现　 ☑相关性　 ☑有时限</text>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="pt10  pb10 border-b lh18" bindtap="click4" >
+          <button class="f-btn border-btn">去设置</button>
+        </view>
+      </block>
+
+      <view class="pt20 align-c gray1" data-dpr="normal">祝您早日完成！</view>
+
+    </view>
+
+    <view class="f-btn-list pt10 flex-center " bindtap="click3">
+      <button class="weui-btn flex-row enter-btn">
+        <view class="title">好</view>
+      </button>
+    </view>
+    <view class="align-c gray4 pt20 pb100" data-dpr="normal" bindtap="click4">修改</view>
+  </view>
+
+
+  <!--来源-->
+  <view  wx:if="{{state == 3}}" class="f-book"  >
+    <view class="text1 gray4 align-l" >
+      出自 《管理的实践》
+    </view>
+    <view class="text2 gray4 align-r" >
+      --- 彼得·德鲁克
+    </view>
+  </view>
+
+</scroll-view>
+

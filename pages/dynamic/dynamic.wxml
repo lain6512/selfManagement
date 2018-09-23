@@ -1,0 +1,252 @@
+<!--index.wxml-->
+<scroll-view class="container bgcolor-white">
+  <block wx:for="{{dataList}}"  wx:key="index">
+
+    <!--早睡打卡-->
+    <block wx:if="{{item.type =='0'}}">
+    <view class="dynamic-list  p10">
+      <view class="head">
+        <view class="head-map"><image class="img" mode="aspectFill" src="{{item.info.creatorInfo.avatarUrl}}"></image></view>
+        <view class="name pt5 gray1" data-dpr="s">{{item.creatorName}}</view>
+      </view>
+      <view class="info">
+        <view class="info-inner">
+          <view class="left">
+
+            <view wx:if="{{item.info.quantity == 1}}" class="txt pt5">
+              第一次早睡打卡！开启新的自律生活
+            </view>
+            <view wx:else="" class="txt pt5">
+              <text class="color-bright">早睡打卡！</text> 第 <text class="color-bright"> {{item.info.quantity}} </text> 次记录！
+            </view>
+
+            <text class="time gray4">{{item.info.date}}</text>
+          </view>
+          <view class="right flex">
+            <text class="iconfont icon-jiangli w1 gray4 mr5"></text>
+            <text class="num gray4"> x {{item.info.medal}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    </block>
+
+    <!--早起打卡-->
+    <block wx:if="{{item.type =='1'}}">
+      <view class="dynamic-list  p10">
+        <view class="head">
+          <view class="head-map"><image class="img" mode="aspectFill" src="{{item.info.creatorInfo.avatarUrl}}"></image></view>
+          <view class="name pt5 gray1" data-dpr="s">{{item.creatorName}}</view>
+        </view>
+        <view class="info">
+          <view class="info-inner">
+            <view class="left">
+
+              <view wx:if="{{item.info.quantity == 1}}" class="txt pt5">
+                第一次早起打卡！开始新的旅程
+              </view>
+              <view wx:else="" class="txt pt5">
+                第<text class="color-bright"> {{item.info.quantity}} </text>次 <text class="color-bright">早起！</text>
+              </view>
+
+              <text class="time gray4">{{item.info.date}}</text>
+            </view>
+            <view class="right flex">
+              <text class="iconfont icon-jiangli w1 gray4 mr5"></text>
+              <text class="num gray4"> x {{item.info.medal}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!--记录好习惯-->
+    <block wx:if="{{item.type =='2'}}">
+      <view class="dynamic-list  p10">
+        <view class="head">
+          <view class="head-map"><image class="img" mode="aspectFill" src="{{item.info.creatorInfo.avatarUrl}}"></image></view>
+          <view class="name pt5 gray1" data-dpr="s">{{item.creatorName}}</view>
+        </view>
+        <view class="info">
+          <block wx:if="{{item.info.comment}}">
+            <view class="ico-tips"></view>
+            <view class="ico-tips2"></view>
+            <view class="message">{{item.info.comment}}</view>
+          </block>
+          <view class="info-inner">
+            <view class="left">
+
+              <view wx:if="{{item.info.info.day == '连续记录'}}" class="txt pt5">
+                连续记录 <text class="color-bright">{{item.info.info.title}} ！</text>
+              </view>
+              <view wx:elif="{{item.info.info.day == '第一次创建'}}" class="txt pt5">
+                记下一次好习惯 <text class="color-bright"> {{item.info.info.title}} </text>
+              </view>
+              <view wx:else="" class="txt pt5">
+                隔 <text class="color-bright"> {{item.info.info.day}} </text> 后再次
+                <text class="color-bright"> {{item.info.info.title}}！</text>
+              </view>
+
+              <text class="time gray4">{{item.info.date}}</text>
+            </view>
+            <view class="right flex">
+              <text class="iconfont icon-jiangli w1 gray4 mr5"></text>
+              <text class="num gray4"> x {{item.info.medal}}</text>
+            </view>
+          </view>
+
+
+        </view>
+      </view>
+    </block>
+
+
+    <!--记录坏习惯-->
+    <block wx:if="{{item.type =='3'}}">
+      <view class="dynamic-list  p10">
+        <view class="head">
+          <view class="head-map"><image class="img" mode="aspectFill" src="{{item.info.creatorInfo.avatarUrl}}"></image></view>
+          <view class="name pt5 gray1" data-dpr="s">{{item.creatorName}}</view>
+        </view>
+        <view class="info">
+          <view class="info-inner">
+            <view class="left">
+
+              <view wx:if="{{item.info.num == 1}}" class="txt pt5">
+                为了警惕自己，{{item.creatorName}} 记录一次 <text class="color-bright"> {{item.info.info.title}} </text>
+              </view>
+              <view wx:elif="{{item.info.num == 2}}" class="txt pt5">
+                敢于直视真实的自己，{{item.creatorName}} 记录下一次 <text class="color-bright"> {{item.info.info.title}} </text>
+              </view>
+              <view wx:elif="{{item.info.num == 3}}" class="txt pt5">
+                勇敢的面对现实，记录一次坏习惯 <text class="color-bright"> {{item.info.info.title}} </text>
+              </view>
+              <view wx:else="" class="txt pt5">
+                记下坏习惯 <text class="color-bright"> {{item.info.info.title}} </text>
+              </view>
+
+              <text class="time gray4">{{item.info.date}}</text>
+            </view>
+            <view class="right flex">
+              <text class="iconfont icon-jiangli w1 gray4 mr5"></text>
+              <text class="num gray4"> x {{item.info.medal}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+
+
+
+<!--
+    &lt;!&ndash;早起打卡&ndash;&gt;
+    <block wx:elif="{{item.type =='1'}}">
+      <view >
+        <view class="head flex-row">
+          <view class="head-map"><image class="img"  mode="aspectFill"  src="{{item.info.creatorInfo.avatarUrl}}"></image></view>
+        </view>
+      </view>
+      <view class="weui-flex__item center">
+        <view class="txt"><text class="color-bright">{{item.creatorName}}</text></view>
+        <view class="txt">今日早起！</view>
+        &lt;!&ndash;<view class=""><text class="time gray4">{{item.info.date}}</text></view>&ndash;&gt;
+      </view>
+      <view>
+        <view class="right">
+          <text class="iconfont icon-ai250 w1 color-bright"></text>
+          <text class="num color-bright"> x 1</text>
+        </view>
+      </view>
+    </block>
+
+    &lt;!&ndash;记录一次好习惯&ndash;&gt;
+    <block wx:elif="{{item.type =='2'}}">
+      <view >
+        <view class="head flex-row">
+          <view class="head-map"><image class="img"  mode="aspectFill"  src="{{item.info.creatorInfo.avatarUrl}}"></image></view>
+          <view class="pt5 gray1" data-dpr="s">{{item.creatorName}}</view>
+        </view>
+      </view>
+      <view class="weui-flex__item center">
+        <view class="txt"><text class="color-bright">记录一次 {{item.info.info.title}}</text></view>
+        &lt;!&ndash;<view class="txt">记录一次 {{item.info.info.title}}</view>&ndash;&gt;
+        <view class=""><text class="time gray4">{{item.info.date}}</text></view>
+      </view>
+      <view>
+        <view class="right">
+          <text class="iconfont icon-ai250 w1 color-bright"></text>
+          <text class="num color-bright"> x 1</text>
+        </view>
+      </view>
+    </block>
+
+    &lt;!&ndash;记录一次好习惯&ndash;&gt;
+    <block wx:elif="{{item.type =='3'}}">
+      <view >
+        <view class="head flex-row">
+          <view class="head-map"><image class="img"  mode="aspectFill"  src="{{item.info.creatorInfo.avatarUrl}}"></image></view>
+        </view>
+      </view>
+      <view class="weui-flex__item center">
+        <view class="txt"><text class="color-bright">{{item.creatorName}}</text> </view>
+        <view class="txt">{{item.info.info.title}} </view>
+        &lt;!&ndash;<view class=""><text class="time gray4">{{item.info.date}}</text></view>&ndash;&gt;
+      </view>
+      <view>
+        <view class="right">
+          <text class="iconfont icon-ai250 w1 color-bright"></text>
+          <text class="num color-bright"> x 1</text>
+        </view>
+      </view>
+    </block>-->
+
+
+
+
+  </block>
+  <view wx:if="{{endData}}" class="weui-loadmore weui-loadmore_line weui-loadmore_dot">
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line weui-loadmore__tips_in-dot"></view>
+  </view>
+
+
+  <!--战胜拖延 -->
+ <!-- <view class="dynamic-list  p10">
+    <view class="head">
+      <view class="head-map"><image class="img" mode="aspectFill" src="https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTK7uQibFqljjP97zYJS9xQMsotwXfXsWRuftevrlPj6tlF0gvuceUZV2EKVNkN3d1ekzBqS6uEN1KA/132"></image></view>
+      <view class="name pt5 gray1" data-dpr="s">畅哥</view>
+    </view>
+    <view class="info">
+      <view class="info-inner">
+        <view class="left">
+          <view class="txt pt5">恭喜！畅哥 4月5日 战胜一次拖延，再接再厉！</view>
+          <text class="time gray4">2018-12-12</text>
+        </view>
+        <view class="right flex">
+          <text class="iconfont icon-jiangli w1 gray4 mr5"></text>
+          <text class="num gray4"> x 1</text>
+        </view>
+      </view>
+    </view>
+  </view>-->
+
+  <!--记录拖延项 -->
+<!--  <view class="dynamic-list  p10">
+    <view class="head">
+      <view class="head-map"><image class="img" mode="aspectFill" src="https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTK7uQibFqljjP97zYJS9xQMsotwXfXsWRuftevrlPj6tlF0gvuceUZV2EKVNkN3d1ekzBqS6uEN1KA/132"></image></view>
+      <view class="name pt5 gray1" data-dpr="s">畅哥</view>
+    </view>
+    <view class="info">
+      <view class="info-inner">
+        <view class="left">
+          <view class="txt pt5">写下了 “写总结”，开始新的战“拖”旅程！</view>
+          <text class="time gray4">2018-12-12</text>
+        </view>
+        <view class="right flex">
+          <text class="iconfont icon-jiangli w1 gray4 mr5"></text>
+          <text class="num gray4"> x 1</text>
+        </view>
+      </view>
+    </view>
+  </view>-->
+
+</scroll-view>

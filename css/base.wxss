@@ -3,18 +3,17 @@ html {
 }
 html body {
   width: 100%;
-  font-size: 12px;
   height: 100%;
   /*background-color: #ffffff;*/
 }
 .color-base {
-  color: #666666;
+  color: #666;
 }
 .color-red {
-  color: #1aad19;
+  color: #1AAD19;
 }
 .color-red2 {
-  color: #1aad19;
+  color: #1AAD19;
 }
 .color-blue {
   color: #54a7f0;
@@ -44,19 +43,19 @@ html body {
   color: #000000;
 }
 .color-bright {
-  color: #1aad19;
+  color: #1AAD19;
 }
 .color-bright3 {
-  color: #e64340;
+  color: #E64340;
 }
 .bgcolor-white {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .bgcolor-bright {
-  background-color: #1aad19;
+  background-color: #1AAD19;
 }
 .bgcolor-bright2 {
-  background-color: #1aad19;
+  background-color: #1AAD19;
 }
 .bgcolor-gray {
   background-color: #999999;
@@ -104,16 +103,40 @@ html body {
   font-size: 23px;
 }
 .lh14 {
-  line-height: 1.4em;
+  line-height: 14px;
 }
 .lh16 {
-  line-height: 1.6em;
+  line-height: 16px;
 }
 .lh18 {
-  line-height: 1.8em;
+  line-height: 18px;
 }
 .lh20 {
-  line-height: 2em;
+  line-height: 20px;
+}
+.lh24 {
+  line-height: 24px;
+}
+.lh28 {
+  line-height: 28px;
+}
+.align-l {
+  text-align: left;
+}
+.align-c {
+  text-align: center;
+}
+.align-r {
+  text-align: right;
+}
+.align-t {
+  vertical-align: top;
+}
+.align-m {
+  vertical-align: middle;
+}
+.align-b {
+  vertical-align: bottom;
 }
 .hide {
   display: none;
@@ -148,24 +171,6 @@ html body {
 .float-r {
   float: right;
 }
-.align-l {
-  text-align: left;
-}
-.align-c {
-  text-align: center;
-}
-.align-r {
-  text-align: right;
-}
-.align-t {
-  vertical-align: top;
-}
-.align-m {
-  vertical-align: middle;
-}
-.align-b {
-  vertical-align: bottom;
-}
 .margin-auto {
   margin: 0 auto;
 }
@@ -181,16 +186,19 @@ html body {
   height: 76%;
 }
 .border-t {
-  border-top: #e5e5e5 0.5px solid;
+  border-top: #E5E5E5 0.5px solid;
 }
 .border-b {
-  border-bottom: #e5e5e5 0.5px solid;
+  border-bottom: #E5E5E5 0.5px solid;
 }
 .max-w100 {
   max-width: 100%;
 }
 .max-h100 {
   max-height: 100%;
+}
+.over {
+  overflow: hidden;
 }
 .flex {
   display: flex;
@@ -714,9 +722,13 @@ html body {
   padding-left: 30px;
   padding-right: 30px;
 }
-.plr30 {
+.plr40 {
   padding-left: 40px;
   padding-right: 40px;
+}
+.plr50 {
+  padding-left: 50px;
+  padding-right: 50px;
 }
 .icon {
   width: 2em;
@@ -788,7 +800,7 @@ html body {
   padding: 0 20px;
   display: inline-block;
   text-align: center;
-  color: #666666;
+  color: #666;
   outline: none;
   background: #ffffff;
   border: #e7e7e7 1px solid;
@@ -805,7 +817,7 @@ html body {
   border-radius: 6px;
 }
 .f-btn.bgcolor-none {
-  color: #1aad19;
+  color: #1AAD19;
   background: transparent;
 }
 .f-btn.bgcolor-none.scale-1px:after {
@@ -820,9 +832,9 @@ html body {
   border-radius: 6px;
 }
 .f-btn.bgcolor-none.bgcolor-bright {
-  color: #1aad19;
+  color: #1AAD19;
 }
 .f-btn.bgcolor-none.bgcolor-bright.scale-1px:after {
-  border: #e64340 1px solid;
+  border: #E64340 1px solid;
   border-radius: 6px;
 }

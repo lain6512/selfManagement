@@ -1,16 +1,18 @@
-//index.js
+//策略号#01
 //获取应用实例
 var Bmob = require('../../utils/bmob.js');
 var common = require('../../utils/common.js');
-var Tool = require('../../utils/tool.js');
+// var Tool = require('../../utils/tool.js');
+var Init = require('../../utils/initUserInfo.js');
 const app = getApp()
 var that;
 Page({
   data: {
-    overtime:20,//单位：分，多少时间内允许记录
+    overtime:0,//单位：分，多少时间内允许记录
+    overtime:1,//单位：分，多少时间内允许记录
 
     initFinish:false,//初始化是否完成
-    allowRecord:false,//是否允许记录
+    allowRecord:true,//是否允许记录
     isShow_zan:false,//点餐弹框显示
     delayFinish:false,
 
@@ -18,6 +20,8 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    delayId:'',
+    title:'',
 
     recordList: [],//记录列表
     mentality:{
@@ -38,142 +42,145 @@ Page({
       "超级好的精神状态，什么干扰都不能阻挡你，行动！",
       "GOOD!  全世界都阻挡不住您的热情了，行动起来！",
     ],
+    stateTxt:[
+      '干劲十足', // 10
+      '异常清醒', // 9
+      '非常不错', // 8
+      '不错　　', // 7
+      '一般　　', // 6
+      '有些疲劳', // 5
+      '很疲劳　', // 4
+      '头晕脑胀', // 3
+      '身体异常', // 2
+      '生病　　', // 1
+
+    ]
 
   },
-  onLoad: function () {
+  onLoad: function (options) {
     console.log("-------------------开始list页面--------------")
 
-    this.userData()
-    this.getDataMould()
+    var actionBack = false
+    if (options.action) {
+      actionBack = true
+    }
+    this.setData({
+      delayId:options.delayId,
+      title:options.title,
+      allowRecord: !actionBack
+    })
+
+
+
+    let that = this
+    // let delayItem = app.Data.delayItem.dataInfo
+    Init.user(app,that,state=> {
+      that.getDataMould()
+
+      // if (delayItem && delayItem.strategy_01 && delayItem.strategy_01.initMould == true) {
+      //   that.getDataMould()
+      // } else {
+      //   //第一次进入
+      //   wx.redirectTo ({
+      //     url: '../listEdit/listEdit?delayId=' + this.data.delayId + '&title=' +  this.data.title
+      //   })
+      // }
+
+
+    })
   },
   onReady: function () {
-    // 页面渲染完成
-    // common.showTip("标题不能为空", "none");
-    //获得article组件
-    this.article = this.selectComponent("#article");
-  },
-  onShow: function () {
-    // 页面显示
-
-
-    /*try {
-      var value = wx.getStorageSync('record')
-      if (value) {
-        console.log("获取缓存")
-        console.log(value)
-
-      }
-    } catch (e) {
-      console.log("获取缓存 失败")
-      console.log(e)
-    }*/
-  },
-  onHide: function () {
-    // 页面隐藏
-  },
-  onUnload: function () {
-    // 页面关闭
   },
 
-  /**
-   * 初始化
-   */
-  //1.获取用户数据
-  userData:function () {
-    this.setData({
-      User: app.User,
-      initFinish:false
-    })
-    app.UserCallBack = res => {
-      console.log("执行 Callback 1")
-      this.setData({
-        User: res,
-        hasUserInfo: true
-      })
-      this.getDataMould()
-    }
-  },
-  //2.获取数据
+
+  //获取数据
   getDataMould:function(){
-    // console.log("执行 getDataMould（）:")
-    // console.log("this.data.User:")
-    // console.log(app.Data.itemMould)
 
     //数据存在
-    if(app.Data.itemMould.length > 0){
-      this.setData({
-        temMould:app.Data.itemMould,
-        type:app.Data.itemMouldType
-      })
-      this.initRecordList(app.Data.itemMould)
-      console.log("itemMouldType:"+app.Data.itemMouldType)
-      console.log(app.Data.itemMould)
-      return
-    }
+    // if(app.Data.itemMould.length > 0){
+    //   console.log('模板数据存在')
+    //   this.setData({
+    //     temMould:app.Data.itemMould,
+    //     type:app.Data.itemMouldType
+    //   })
+    //   this.initRecordList(app.Data.itemMould)
+    //   return
+    // } else {
+    //   console.log('模板数据不存在')
 
-
-    //数据不存在
-    if(this.data.User ==undefined || this.data.User==null){
-      // console.log("停止")
-      return
-    }
-    // return
-    var that = this;
-    var cId = this.data.User.id
-    var Mould = Bmob.Object.extend("item_mould_list");
-    var query = new Bmob.Query(Mould);
-
-    query.descending('createdAt');
-    query.equalTo("creatorId", cId);
-    query.find({
-      success: function (results) {
-        console.log("查找 模板数据 成功")
-        console.log(results);
-
-        if(results && results.length>0){
-          var arr = app.Data.itemMould = results[0].attributes.itemTypeArr
-          var type = app.Data.itemMouldType = results[0].attributes.type
-          var itemMouldId = app.Data.itemMouldId = results[0].id
-          that.setData({
-            temMould:arr,
-            type:type
-          })
-          console.log(app.Data.itemMould)
-          that.initRecordList(arr)
-        }else{
-          //第一次进入
-          wx.redirectTo ({
-            url: '../itemAdd/itemAdd?isFirst=Y'
-          })
-        }
-      },
-      error: function (error) {
-        console.log("查找 模板数据 失败")
+      //数据不存在
+      if(!app.User){
+        console.log("停止")
+        return
       }
-    });
+      // return
+      var that = this;
+      var cId = app.User.id
+      var Mould = Bmob.Object.extend("item_mould_list");
+      var query = new Bmob.Query(Mould);
+
+      query.descending('createdAt');
+      query.equalTo("creatorId", cId);
+      query.find({
+        success: function (results) {
+          console.log("查找 模板数据 成功")
+          console.log(results);
+
+          if(results && results.length>0){
+            var arr = app.Data.itemMould = results[0].attributes.itemTypeArr
+            var type = app.Data.itemMouldType = results[0].attributes.type
+            var itemMouldId = app.Data.itemMouldId = results[0].id
+            that.setData({
+              // temMould:arr,
+              type:type
+            })
+
+            that.initRecordList(arr)
+          }else{
+            //第一次进入
+            wx.redirectTo ({
+              url: '../listEdit/listEdit?delayId=' + that.data.delayId + '&title=' +  that.data.title
+            })
+          }
+        },
+        error: function (error) {
+          console.log("查找 模板数据 失败")
+        }
+      });
+
+    // }
+
+
+
   },
   //3.初始化记录列表
   initRecordList:function (arr) {
 
     var that =this
-    var recordList = wx.getStorageSync('recordList')
-    var val = wx.getStorageSync('mentality').value
+    // var recordList = wx.getStorageSync('recordList')
+    // var val = wx.getStorageSync('mentality').value
+
+    var recordList = app.Data.recordList
+    var val = app.Data.mentalityVal
+
     console.log("recordList1")
     console.log(recordList)
 
-    if(wx.getStorageSync('delayFinish')==''){
-      this.setData({
-        delayFinish: false
-      })
-    }else{
-      this.setData({
-        delayFinish: wx.getStorageSync('delayFinish')
-      })
-    }
+    // if(wx.getStorageSync('delayFinish')==''){
+    //   this.setData({
+    //     delayFinish: false
+    //   })
+    // }else{
+    //   this.setData({
+    //     delayFinish: wx.getStorageSync('delayFinish')
+    //   })
+    // }
 
-    console.log("delayFinish:"+this.data.delayFinish)
-    if(recordList !=''){
-      console.log("取缓存")
+    // console.log("delayFinish:"+this.data.delayFinish)
+
+
+    if(recordList){
+      console.log("--有记录")
       recordList.forEach(function (item, index) {
         item.show =true
       })
@@ -184,6 +191,19 @@ Page({
         }
       })
     }else{
+      console.log("--无记录")
+
+      //合并拖延项
+      arr.forEach(function (item, index) {
+        if(item.title == app.Data.itemInfoFirst.itemTitle){
+          item.items.push(app.Data.itemInfoFirst)
+          // console.log('合并：'+ app.Data.itemInfoFirst.itemTitle)
+        } else {
+          // console.log(' 无合并项')
+        }
+      })
+
+      // 添加页面选项字段
       var recordArr =[]
       arr.forEach(function (item, index) {
         item.items.forEach(function (n, i) {
@@ -201,122 +221,18 @@ Page({
         })
       })
 
+
+
       this.setData({
-        recordList: recordArr,
+        recordList: recordArr.concat(),
       })
-      console.log("recordList2")
-      console.log(recordList)
+      console.log("recordArr")
+      console.log(recordArr)
     }
-    this.setFinishItem()
-  },
-  //4.是否需要重置每天已完成的选项,凌晨4点重置
-  setFinishItem:function () {
-
-    var that =this
-    var recordList = this.data.recordList
-
-    var now = new Date();
-    var time0;//凌晨4点
-    var time1 = wx.getStorageSync('recordTime');//上一次记录的时间
-    var time2;//现在的时间
-    var time0Str,time1Str,time2Str
-
-
-    time0Str = Tool.dateToString(now).substring(0,10) + ' 04:00:00'
-    // time0Str = '2018-02-23 00:20:00'
-
-    if (time1==''){
-      time1Str = Tool.dateToString(now).substring(0,10) + ' 00:00:00'
-    }else{
-      time1Str = Tool.dateToString(time1);
-    }
-    time2Str = Tool.dateToString(now);
-    console.log("time0Str："+time0Str)
-    console.log("time1Str："+time1Str)
-    console.log("time2Str："+time2Str)
-
-    var t0 = Tool.TimeDifference(time0Str, time2Str);//当前时间和4点的时间差
-    var t1 = Tool.TimeDifference(time0Str, time1Str);//上一次记录时间和4点的时间差
-    var t2 = Tool.TimeDifference(time1Str, time2Str);//当前时间和上一次记录的时间差
-
-
-    if(t2 && t2>3){
-      console.log("更新,t2:"+t2)
-      upDate()
-    }else{
-      console.log("判断24小时内,t2:"+t2)
-      if(t1 && t1>0){
-        console.log("记录时间和当前时间都在4点后")
-      }else{
-        if(t0 && t0>0){
-          console.log("记录时间在4点前，当前时间在4点后")
-          upDate()
-        }else{
-          console.log("记录时间和当前时间都在4点前")
-        }
-      }
-    }
-
-
-    function upDate() {
-      // console.log("【执行更新】")
-      recordList.forEach(function (item, index) {
-        item.value = 0
-      })
-      that.setData({
-        recordList: recordList,
-      })
-      wx.setStorageSync('recordList', that.data.recordList)
-      wx.setStorageSync('delayFinish', false)
-    }
-
-    this.setStorageTime()
-  },
-  //5.缓存时间是否符合条件，是否允许记录
-  setStorageTime:function () {
-    var recordTime = wx.getStorageSync('recordTime')
-    // console.log("recordTime:")
-    // console.log(recordTime)
-    if(recordTime == ''){
-      this.setData({
-        allowRecord:true,
-      })
-      return
-    }else{
-      var date = new Date();
-      var time1 = Tool.dateToString(recordTime);
-      var time2 = Tool.dateToString(date);
-      var n = Tool.TimeDifference(time1, time2);
-
-      if(n>this.data.overtime){
-        this.setData({allowRecord:true})
-      }else {
-        this.setData({allowRecord:false})
-        this.setData({initFinish:true})//全部初始化完成！
-      }
-    }
-    console.log('相差时间：'+n+"分钟， allowRecord:"+this.data.allowRecord)
-
-
-    this.article = this.selectComponent("#article");
+    this.setData({initFinish:true})
   },
 
 
-  //进入页面逻辑，路线1：跳转到选模板页；2：开始状态选项; 路线3：进入列表；
-  /*pageStart:function () {
-    if(app.Data.itemMould.length<=0){
-      console.log("路线1")
-      this.getDataMould()
-
-    }else if(this.data.allowRecord){
-      console.log("路线2")
-      console.log("app.Data.itemMould")
-      this.initRecordList(app.Data.itemMould)
-
-    }else{
-      console.log("路线3")
-    }
-  },*/
 
 
   //说明文章弹窗
@@ -325,8 +241,8 @@ Page({
   },
   //点击选项
   clickItem:function (e) {
-    console.log("点击")
-    console.log(e)
+    // console.log("点击")
+    // console.log(e)
 
     var that =this
     var index = e.currentTarget.dataset.index
@@ -340,7 +256,7 @@ Page({
       recordList:arr
     })
 
-    console.log("index:"+index)
+    // console.log("index:"+index)
 
     //拖延项
     if(item.isDelay ==true && value=='OK'){
@@ -385,8 +301,9 @@ Page({
 
   //总精神状态选项
   clickMentality:function (e) {
-    console.log("点击")
-    // console.log(e)
+    // console.log("点击")
+    // console.log(e.currentTarget.dataset.value)
+
     var obj = this.data.mentality
     obj.value = e.currentTarget.dataset.value
     this.setData({
@@ -394,13 +311,23 @@ Page({
       show_mentality:false
     })
   },
-  //Link编辑选项页
+  //Link 编辑选项页
   linkToItemEdit:function (e) {
-    var recordList = wx.getStorageSync('recordList')
-    // console.log(e.currentTarget.dataset.index)
-    // console.log(recordList)
+    console.log(e.currentTarget.dataset.index)
     wx.navigateTo({
       url: '../itemEdit/itemEdit?index='+e.currentTarget.dataset.index
+    })
+  },
+  //Link 拖延项首页
+  linkDelayIndex:function () {
+    wx.redirectTo({
+      url: "../delayHome/delayHome?delayId=" +this.data.delayId
+    })
+  },
+  //LinkTo 行动建议
+  linkToAciton:function () {
+    wx.redirectTo ({
+      url: '../action/action?delayId=' + this.data.delayId + '&title=' +  this.data.title
     })
   },
 
@@ -409,8 +336,8 @@ Page({
 
     var that = this
     var type= app.Data.itemMouldType //1:非工作常规日；2：工作日下班后；3，工作日上班时间
-    var creatorId = this.data.User.id
-    var creatorName = this.data.User.attributes.nickName
+    var creatorId = app.User.id
+    var creatorName = app.User.attributes.nickName
 
     var Record = Bmob.Object.extend("item_record_list");
     var record = new Record();
@@ -424,17 +351,28 @@ Page({
       success: function (resData) {
         console.log("添加 记录 成功")
         console.log(resData)
-        console.log("delayFinish:"+that.data.delayFinish)
-        wx.setStorageSync('recordList', that.data.recordList)
-        wx.setStorageSync('mentality', that.data.mentality)
-        wx.setStorageSync('delayFinish', that.data.delayFinish)
-        wx.setStorageSync('recordTime', new Date())
-        that.setData({allowRecord:false})
-        if(that.data.delayFinish==true){
 
-        }else{
-          wx.redirectTo ({url: '../action/action'})
-        }
+        app.Data.recordList = that.data.recordList
+        app.Data.mentalityVal = that.data.mentality.value
+        wx.redirectTo ({
+          url: '../action/action?back=Y&delayId=' + that.data.delayId + '&title=' +  that.data.title
+        })
+
+        // console.log("delayFinish:"+that.data.delayFinish)
+        // wx.setStorageSync('recordList', that.data.recordList)
+        // wx.setStorageSync('mentality', that.data.mentality)
+        // wx.setStorageSync('delayFinish', that.data.delayFinish)
+        // wx.setStorageSync('recordTime', new Date())
+
+        // that.setData({allowRecord:false})
+
+
+
+        // if(that.data.delayFinish == true){
+        //
+        // }else{
+        //   wx.redirectTo ({url: '../action/action'})
+        // }
 
       },
       error: function(result, error) {
